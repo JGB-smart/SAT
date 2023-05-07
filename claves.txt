@@ -1,0 +1,21 @@
+Usuarios:
+
+1 - Admin:
+
+username: juan
+pass:admin
+
+2 - Directores:
+
+username: Orlandox
+pass: director
+
+3 - Gerentes:
+
+username: Karinax
+pass: gerente
+
+4 - Trabajadores:
+
+username: Alejandro
+pass: trabajador
