@@ -15,7 +15,6 @@ class Perfil(models.Model):
         return "user: " + str(self.user)
 
     class Meta:
-        db_table= 'perfil'
         verbose_name = 'Perfil'
         verbose_name_plural = 'Perfiles'
         ordering = ['-id']
