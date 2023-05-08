@@ -8,14 +8,21 @@ pass:admin
 2 - Directores:
 
 username: Orlandox
-pass: director
+pass: director_1234
 
 3 - Gerentes:
 
 username: Karinax
-pass: gerente
+pass: gerente_1234
 
 4 - Trabajadores:
 
 username: Alejandro
-pass: trabajador
+pass: trabajador_1234
+
+username: Carlox
+pass: trabajador_1234
+
+username: Juanchox
+pass: trabajador_1234
+
