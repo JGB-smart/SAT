@@ -11,12 +11,17 @@
 {% block content %}
     
     <h3>Usuarios</h3>
+    <a href="{% url 'agregar_usuario' %}" class="btn btn-success">Agregar</a>
+
+        
+    
 
     {% if usuarios %}
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Lista de Usuarios</h6>
+            
             </div>
             <div class="card-body">
                 <div class="table-responsive">
