@@ -79,7 +79,7 @@ class AgregarUsuario(View):
 
             return redirect('lista_usuarios')
         else:
-            print(request.POST['grupo'])           
+        
             for msg in form.error_messages:
                 messages.error(request, form.error_messages[msg])
             
