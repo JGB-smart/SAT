@@ -10,6 +10,9 @@ pass:admin
 username: Orlandox
 pass: director_1234
 
+username: directorx
+pass: dejame_entrar_12345
+
 3 - Gerentes:
 
 username: Karinax
@@ -25,4 +28,7 @@ pass: trabajador_1234
 
 username: Juanchox
 pass: trabajador_1234
+
+
+pruebitax_gqwert637
 

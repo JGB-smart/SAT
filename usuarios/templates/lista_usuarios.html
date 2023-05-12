@@ -62,7 +62,7 @@
                                     <td>{{ usuario.email }}</td>
                                     <td>{{ usuario.perfil.telf}}</td>
                                     <td>
-                                        <a href="#" class="btn btn-info">Editar</a>
+                                        <a href=" {% url 'editar_usuario' usuario.id %}" class="btn btn-info">Editar</a>
                                         <a href="#" class="btn btn-danger">Eliminar</a>
                                     </td>
                                 </tr>

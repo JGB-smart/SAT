@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView,ListView, CreateView, UpdateView, DeleteView, View
 from django.contrib import messages
@@ -85,3 +86,15 @@ class AgregarUsuario(View):
             return render(request,self.template_name,{"form":form, "form2":form2})
     
 
+class EditarUsuario(UpdateView):
+    model = User
+    form_class = RegistrationForm
+    template_name = 'agg_usuarios.html'
+    success_url= reverse_lazy('lista_usuarios')
+    
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        # if not request.user.has_perm('productos.change_productos'):
+        #       messages.success(request,"ACCESO DENEGADO")
+        #       return redirect('productos')
+        return super(EditarUsuario,self).dispatch(request, *args, **kwargs)
