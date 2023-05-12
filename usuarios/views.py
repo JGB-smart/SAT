@@ -7,6 +7,8 @@ from django.contrib import messages
 
 from django.contrib.auth.forms import UserCreationForm
 from .forms import RegistrationForm
+from .forms import RegistrationGroupForm
+from django.contrib.auth.models import Group
 
 from django.contrib.auth.models import User
 from perfil.models import Perfil
@@ -56,26 +58,30 @@ class ListadoUsuario_Grupo(ListView):
 class AgregarUsuario(View):
     
     template_name = 'agg_usuarios.html'
-    Model = User
+    # Model = User
     
 
     def get(self,request):
         form = RegistrationForm()
-        return render(request,self.template_name,{"form":form})
+        form2 = RegistrationGroupForm()
+        
+        return render(request,self.template_name,{"form":form, "form2":form2})
     
 
     def post(self,request):
         form = RegistrationForm(request.POST)
-
+        form2 = RegistrationGroupForm()
         if form.is_valid():
-            form.save()
+            user = form.save()
+            group = Group.objects.get(id= request.POST['grupo'])
+            user.groups.add(group)
 
             return redirect('lista_usuarios')
         else:
-            print(request.POST)           
+            print(request.POST['grupo'])           
             for msg in form.error_messages:
                 messages.error(request, form.error_messages[msg])
             
-            return render(request,self.template_name,{"form":form})
+            return render(request,self.template_name,{"form":form, "form2":form2})
     
 
