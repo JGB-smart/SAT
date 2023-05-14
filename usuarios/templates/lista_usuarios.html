@@ -63,7 +63,7 @@
                                     <td>{{ usuario.perfil.telf}}</td>
                                     <td>
                                         <a href=" {% url 'editar_usuario' usuario.id %}" class="btn btn-info">Editar</a>
-                                        <a href="#" class="btn btn-danger">Eliminar</a>
+                                        <a href="{% url 'eliminar_usuario' usuario.id %}" class="btn btn-danger">Eliminar</a>
                                     </td>
                                 </tr>
                             {% endfor %}                       
@@ -73,4 +73,37 @@
             </div>
         </div>
     {% endif %}    
+
+
+
+        
+    {% block js %}
+
+    
+        {% if messages %}
+            {% for m in messages %}
+                <script>
+                    Swal.fire({
+                        "title":"Operación realizada!",
+                        "text": "{{m}}",
+                        "icon":"success"
+                    });
+                </script>
+            {% endfor %}
+        {% endif %}    
+
+
+
+      
+    {% endblock%}
+
+
 {% endblock %}
+
+
+
+
+
+
+
+
