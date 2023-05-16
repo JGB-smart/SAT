@@ -7,6 +7,6 @@ urlpatterns = [
     path('lista_usuarios_grupos/', views.ListadoUsuario_Grupo.as_view(), name='lista_usuarios_grupos'),
     path('agregar_usuarios/', views.AgregarUsuario.as_view(), name='agregar_usuario'),
     path('editar_usuario/<int:pk>', views.EditarUsuario.as_view(), name='editar_usuario'),
-    
+    path('eliminar_usuario/<int:pk>', views.EliminarUsuario, name='eliminar_usuario'),
     # path('usuarios/', views.ListadoUsuarios.as_view(), name='usuarios'),
 ]

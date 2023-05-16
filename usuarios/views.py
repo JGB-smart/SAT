@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
@@ -9,8 +9,8 @@ from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from .forms import RegistrationForm
 from .forms import RegistrationGroupForm
-from django.contrib.auth.models import Group
 
+from django.contrib.auth.models import Group
 from django.contrib.auth.models import User
 from perfil.models import Perfil
 
@@ -76,12 +76,12 @@ class AgregarUsuario(View):
             user = form.save()
             group = Group.objects.get(id= request.POST['grupo'])
             user.groups.add(group)
-
+            messages.success(request,"Usuario registrado")
             return redirect('lista_usuarios')
         else:
         
-            for msg in form.error_messages:
-                messages.error(request, form.error_messages[msg])
+            # for msg in form.error_messages:
+            #     messages.error(request, form.error_messages[msg])
             
             return render(request,self.template_name,{"form":form, "form2":form2})
     
@@ -98,3 +98,11 @@ class EditarUsuario(UpdateView):
         #       messages.success(request,"ACCESO DENEGADO")
         #       return redirect('productos')
         return super(EditarUsuario,self).dispatch(request, *args, **kwargs)
+
+
+
+def EliminarUsuario(request, pk):
+    user = get_object_or_404(User, id = pk)
+    user.delete()
+    messages.success(request,"Usuario eliminado")
+    return redirect('lista_usuarios')
