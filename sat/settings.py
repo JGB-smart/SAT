@@ -44,7 +44,9 @@ INSTALLED_APPS = [
     'login',
     'home',
     'perfil',
-    'usuarios'
+    'usuarios',
+    'tareas',
+    'categorias'
 ]
 
 
