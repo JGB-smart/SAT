@@ -71,7 +71,7 @@ class AgregarUsuario(View):
 
     def post(self,request):
         form = RegistrationForm(request.POST)
-        form2 = RegistrationGroupForm()
+        form2 = RegistrationGroupForm(request.POST['grupo'])
         if form.is_valid():
             user = form.save()
             group = Group.objects.get(id= request.POST['grupo'])
