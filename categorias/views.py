@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse_lazy
 from django.views.generic import TemplateView,ListView, CreateView, UpdateView, DeleteView, View
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -6,6 +7,7 @@ from django.utils.decorators import method_decorator
 
 from categorias.models import Categorias
 
+from .forms import CategoriasForm
 
 
 
@@ -32,3 +34,50 @@ class ListadoCategorias(ListView):
         # print(Group.users.all())
 
         return super( ListadoCategorias,self).dispatch(request, *args, **kwargs)
+    
+
+class AgregarCategoria(View):
+    
+    template_name = 'agg_categorias.html'
+    # Model = User
+    
+
+    def get(self,request):
+        form = CategoriasForm()
+        
+        return render(request,self.template_name,{"form":form})
+    
+
+    def post(self,request):
+        form = CategoriasForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request,"Categoría agregada")
+            return redirect('lista_categorias')
+        else:        
+            #  for msg in form.error_messages:
+            #     messages.error(request, form.error_messages[msg])
+            return render(request,self.template_name,{"form":form,})
+        
+@login_required
+def EliminarCategoria(request, pk):
+    categoria = get_object_or_404(Categorias, id = pk)
+    categoria.delete()
+    messages.success(request,"Categoría eliminada")
+    return redirect('lista_categorias')
+
+
+
+class EditarCategoria(UpdateView):
+    model = Categorias
+    form_class =  CategoriasForm
+    template_name = 'agg_usuarios.html'
+    success_url= reverse_lazy('lista_categorias')
+    
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        # if not request.user.has_perm('productos.change_productos'):
+        #       messages.success(request,"ACCESO DENEGADO")
+        #       return redirect('productos')
+        return super(EditarCategoria,self).dispatch(request, *args, **kwargs)

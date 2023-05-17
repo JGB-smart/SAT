@@ -11,7 +11,7 @@
 {% block content %}
     
     <h3>Categorías</h3>
-    <a href="#" class="btn btn-success">Agregar</a>
+    <a href="{% url 'agg_categorias' %}" class="btn btn-success">Agregar</a>
 
     {% if categorias %}
         <!-- DataTales Example -->
@@ -45,8 +45,8 @@
                                     <td>{{ categoria.categoria}}</td>
                                     <td>
                                         <div class="text-center">
-                                            <a href="#" class="btn btn-info">Editar</a>
-                                            <a href="#" class="btn btn-danger">Eliminar</a>
+                                            <a href="{% url 'editar_categoria' categoria.id %}" class="btn btn-info">Editar</a>
+                                            <a href="{% url 'eliminar_categoria' categoria.id %}" class="btn btn-danger">Eliminar</a>
                                         </div>
                                     </td>
                                 </tr>
