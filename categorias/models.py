@@ -5,7 +5,7 @@ class Categorias(models.Model):
     categoria = models.CharField(max_length=150,verbose_name='categoria')
 
     def __str__(self):
-        return "categoria:" + self.categoria
+        return self.categoria
 
     class Meta:
         verbose_name = 'Categoria'

@@ -1,0 +1,109 @@
+{% extends "home.html"%}
+{% load static %}
+
+
+{% block link %}
+        
+{% endblock%}
+
+{% block title %} Tareas {% endblock %}
+
+
+{% block content %}
+    
+    <h3>Tareas</h3>
+    <a href="#" class="btn btn-success">Agregar</a>
+
+
+        {% if tareas %}
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Lista de Categorías</h6>
+                
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Tarea</th>
+                                    <th>Descripción</th>
+                                    <th>Categoría</th>
+                                    <th>Prioridad</th>
+                                    <th>Status</th>
+                                    <th>Asignación</th>
+                                    <th>Creación</th>
+                                    <th>Porcentaje</th>
+                                    <th>Fecha creación</th>
+                                    <th>Fecha Final</th>
+                                </tr>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Tarea</th>
+                                    <th>Descripción</th>
+                                    <th>Categoría</th>
+                                    <th>Prioridad</th>
+                                    <th>Status</th>
+                                    <th>Asignación</th>
+                                    <th>Creación</th>
+                                    <th>Porcentaje</th>
+                                    <th>Fecha creación</th>
+                                    <th>Fecha Final</th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                {% for tarea in tareas %}
+                                    <tr>
+                                        <td>{{ tarea.id}}</td>
+                                        <td>{{ tarea.tarea}}</td>
+                                        <td>{{ tarea.descripcion}}</td>
+                                        <td>{{ tarea.categoria}}</td>
+                                        <td>{{ tarea.prioridad.prioridad}}</td>
+                                        <td>{{ tarea.status.status}}</td>
+                                        <td>{{ tarea.username}}</td>
+                                        <td>{{ tarea.user__asignaciones}}</td>
+                                        <td>{{ tarea.porcentaje}}</td>
+                                        <td>{{ tarea.Fcreacion}}</td>
+                                        <td>{{ tarea.Ffinal}}</td>
+                                    </tr>
+                                {% endfor %}                       
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+                <br>
+                <div class="text-center">
+                    <b>No se encontraron Tareas</b>
+                </div>
+
+        {% endif %}    
+
+        
+    
+
+
+
+
+
+
+
+
+
+
+
+        
+    {% block js %}
+
+    
+      
+    {% endblock%}
+
+
+{% endblock %}
