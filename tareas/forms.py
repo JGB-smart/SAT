@@ -4,13 +4,23 @@ from django.contrib.auth.models import User
 
 
 
-# class TareasForm(forms.Form):
-#     tarea = forms.TextInput(label="Nombre")
-#     descripcion = forms.TextInput(label="Descripción")
-#     categoria_id = forms.ModelChoiceField(label="Categoria",queryset=Categorias.objects.all())
-#     prioridad_id = forms.ModelChoiceField(label="Prioridad",queryset=Prioridad.objects.all())
-#     status_id = forms.ModelChoiceField(label="Status",queryset=Status.objects.all())
-#     porcentaje = forms.NumberInput(label="Porcentaje")
-#     Asignada_id = forms.ModelChoiceField(label="Asignar",queryset=User.objects.all())
-#     CreadaPor_id = forms.ModelChoiceField(label="Creada por",queryset=User.objects.all())
-#     Ffinal = forms.DateField(label="Fecha Final")
+class TareasForm(forms.ModelForm):
+
+    class Meta:
+        model = Tareas
+        fields =  '__all__'
+
+
+
+
+    # tarea = forms.CharField(required=True, widget=forms.TextInput())
+    # descripcion = forms.CharField(required=True, widget=forms.TextInput())
+    # categoria_id = forms.ModelChoiceField(label='categoria',queryset=Categorias.objects.all())
+    # prioridad_id = forms.ModelChoiceField(label='prioridad',queryset=Prioridad.objects.all())
+    # status_id = forms.ModelChoiceField(label='status', queryset=Status.objects.all())
+    # porcentaje = forms.IntegerField(widget=forms.NumberInput())
+    # Asignada_id = forms.ModelChoiceField(label="Asignar",queryset=User.objects.all())
+    # CreadaPor_id = forms.ModelChoiceField(label="Creada por",queryset=User.objects.all())
+    # Ffinal = forms.DateField(label="Fecha Final")
+
+  

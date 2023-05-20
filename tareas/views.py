@@ -5,7 +5,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView,ListView, CreateView, UpdateView, DeleteView, View
 from django.contrib import messages
 
-# from .forms import TareasForm
+from .forms import TareasForm
 
 from tareas.models import Tareas,Status,Prioridad
 from categorias.models import Categorias
@@ -44,31 +44,36 @@ class ListadoTareas(ListView):
 
 
 
-# class AgregarUsuario(View):
+class CrearTarea(View):
     
-#     template_name = 'agg_usuarios.html'
-#     Model = User
-    
-
-#     def get(self,request):
-#         form = TareasForm()
-
-
-#         return render(request,self.template_name,{"form":form})
+    template_name = 'agg_tarea.html'
+    Model = Tareas
     
 
-#     def post(self,request):
-#         form = TareasForm(request.POST)
+    def get(self,request):
+        form = TareasForm()
 
-#         if form.is_valid():
-#             post = form.save(commit = False)
-#             post.CreadaPor_id = request.user.id
-#             post.save()
-#             messages.success(request,"Usuario registrado")
-#             return redirect('lista_usuarios')
-#         else:
-        
-#             # for msg in form.error_messages:
-#             #     messages.error(request, form.error_messages[msg])
+
+        return render(request,self.template_name,{"form":form})
+    
+
+    def post(self,request):
+        form = TareasForm(request.POST)
+
+        if form.is_valid():
+            # form.save()
             
-#             return render(request,self.template_name,{"form":form, "form2":form2})
+            post = form.save(commit = False)
+            post.CreadaPor_id = request.user.id
+            post.save()
+
+            # form.CreadaPor_id= request.user.id
+            # form.save()
+            messages.success(request,"Tarea Creada")
+            return redirect('lista_tareas')
+        else:
+        
+            # for msg in form.error_messages:
+            #     messages.error(request, form.error_messages[msg])
+            
+            return render(request,self.template_name,{"form":form})

@@ -12,7 +12,7 @@
 {% block content %}
     
     <h3>Tareas</h3>
-    <a href="#" class="btn btn-success">Agregar</a>
+    <a href="{% url 'agg_tareas' %}" class="btn btn-success">Agregar</a>
 
 
         {% if tareas %}
@@ -100,6 +100,19 @@
 
         
     {% block js %}
+
+        
+        {% if messages %}
+            {% for m in messages %}
+                <script>
+                    Swal.fire({
+                        "title":"Operación realizada!",
+                        "text": "{{m}}",
+                        "icon":"success"
+                    });
+                </script>
+            {% endfor %}
+        {% endif %}    
 
     
       
