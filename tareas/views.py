@@ -65,10 +65,19 @@ class CrearTarea(View):
             
             post = form.save(commit = False)
             post.CreadaPor_id = request.user.id
+            
+            if post.porcentaje > 100 :
+                post.porcentaje = 100
+            else:
+                post.porcentaje = 0
+
             post.save()
 
-            # form.CreadaPor_id= request.user.id
-            # form.save()
+            #  Logica para guardar un Form.form
+            # if form.is_valid():
+            #     campo = form.cleaned_data['nombredelcampo']
+            #     Tabla.objects.create(campo =  campo )
+
             messages.success(request,"Tarea Creada")
             return redirect('lista_tareas')
         else:
