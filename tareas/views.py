@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -58,7 +58,7 @@ class CrearTarea(View):
         verifica = Autorizacion(rol)
 
         
-        
+        print(verifica)
         if verifica == 1:
             form = TareasForm()
             return render(request,self.template_name,{"form":form})
@@ -68,6 +68,8 @@ class CrearTarea(View):
         if verifica == 3:
             form = TareasForm2()
             return render(request,self.template_name,{"form":form})
+        else:
+            return redirect('lista_tareas')
         
         
 
@@ -168,7 +170,8 @@ class CrearTarea(View):
                 #     messages.error(request, form.error_messages[msg])
 
                 return render(request,self.template_name,{"form":form})
-            
+        else:
+            return redirect('lista_tareas')    
               
         
         
@@ -202,6 +205,29 @@ class CrearTarea(View):
             
         #     return render(request,self.template_name,{"form":form})
     
+
+
+
+def EliminarTarea(request, pk):
+    tarea = get_object_or_404(Tareas, id = pk)
+    rol = request.user.groups.all().values('name')
+    verifica = Autorizacion(rol)
+    
+    if tarea.CreadaPor == request.user:
+        tarea.delete()
+        messages.success(request,"Tarea eliminada")
+        return redirect('lista_tareas')
+    elif verifica == 1:
+        tarea.delete()
+        messages.success(request,"Tarea eliminada")
+        return redirect('lista_tareas')
+    else:
+        messages.error(request,"Ha Ocurrido un error!")
+        return redirect('lista_tareas')
+
+
+
+
 
 
 

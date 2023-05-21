@@ -38,6 +38,7 @@
                                     <th>Porcentaje</th>
                                     <th>Fecha creación</th>
                                     <th>Fecha Final</th>
+                                    <th>Acción</th>
                                 </tr>
                                 </tr>
                             </thead>
@@ -54,6 +55,7 @@
                                     <th>Porcentaje</th>
                                     <th>Fecha creación</th>
                                     <th>Fecha Final</th>
+                                    <th>Acción</th>
                                 </tr>
                             </tfoot>
                             <tbody>
@@ -70,6 +72,12 @@
                                         <td>{{ tarea.porcentaje}}</td>
                                         <td>{{ tarea.Fcreacion}}</td>
                                         <td>{{ tarea.Ffinal}}</td>
+                                        <td>
+                                            <div class="text-center">
+                                                <a href="#" class="btn btn-info">Editar</a>
+                                                <a href="{% url 'eliminar_tareas' tarea.id%}" class="btn btn-danger">Eliminar</a>
+                                            </div>
+                                        </td>
                                     </tr>
                                 {% endfor %}                       
                             </tbody>
