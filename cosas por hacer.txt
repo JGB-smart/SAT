@@ -1,8 +1,5 @@
 Funcionalidad:
 
-1) Reparar el formulario del modulo agg tareas, quitar el campo Creada por y cambiar los label de los campos fecha final
-
-2) Revisar los campos de fecha del modulo de aggTareas
 
 3) Realizar modulos de eliminación y edición de Tareas
 
