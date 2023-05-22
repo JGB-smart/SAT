@@ -14,9 +14,6 @@
     <h3>Usuarios</h3>
     <a href="{% url 'agregar_usuario' %}" class="btn btn-success">Agregar</a>
 
-        
-    
-
     {% if usuarios %}
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
@@ -55,16 +52,31 @@
                         <tbody>
                             {% for usuario in usuarios %}
                                 <tr>
-                                    <td>{{ usuario.id}}</td>
-                                    <td>{{ usuario.username}}</td>
+                                    <td>{{ usuario.id }}</td>
+                                    <td>{{ usuario.username }}</td>
                                     <td>{{ usuario.first_name }}</td>
                                     <td>{{ usuario.last_name}}</td>
-                                    <td>{{usuario.perfil.puesto}}</td>    
+                                    <td>{{usuario.perfil.puesto }}</td>    
                                     <td>{{ usuario.email }}</td>
-                                    <td>{{ usuario.perfil.telf}}</td>
+                                    <td>{{ usuario.perfil.telf }}</td>
                                     <td>
-                                        <a href=" {% url 'editar_usuario' usuario.id %}" class="btn btn-info">Editar</a>
-                                        <a href="{% url 'eliminar_usuario' usuario.id %}" class="btn btn-danger">Eliminar</a>
+                                        <a 
+                                        title="Eliminar" 
+                                        href=" {% url 'editar_usuario' usuario.id %}" 
+                                        class="btn btn-info">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <!-- <a 
+                                            href="{% url 'eliminar_usuario' usuario.id %}" 
+                                            class="btn btn-danger">Eliminar</a> -->
+
+                                        <a class="btn btn-danger action-button" 
+                                            title="Eliminar" 
+                                            data-toggle="modal" 
+                                            data-target="#myModal" 
+                                            data-detail="{{ usuario.first_name }}|{% url 'eliminar_usuario' usuario.id %}">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             {% endfor %}                       
@@ -75,9 +87,6 @@
         </div>
     {% endif %}    
 
-
-
-        
     {% block js %}
 
     
@@ -93,10 +102,70 @@
             {% endfor %}
         {% endif %}    
 
-
-
-      
     {% endblock%}
+
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Eliminar Usuario</h4>
+                <button 
+                type="button" 
+                class="close" 
+                data-dismiss="modal" 
+                aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Está a punto de borrar a <b>TEXT</b>. ¿Desea continuar?</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+              <a id="deleteReport" href="" class="btn btn-primary">Confirmar</a>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+
+
+
+      {% block extrascripts %}
+
+        <!-- Import Jquery library -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+        <!-- Script Modal -->
+        <script type="text/javascript">
+      
+            $(function () {
+        
+
+
+            $('#myModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget) // Button that triggered the modal
+                var recipient = button.data('detail').split('|') // Extract info from data-* attributes
+                var name = recipient[0]
+                var newUrl = recipient[1]
+                    console.log(name, newUrl)            
+
+                var modal = $(this)
+                //modal.find('.modal-title').text('New message to ' + recipient)
+                modal.find('.modal-body p b').text(name)
+                modal.find('#deleteReport').attr("href", newUrl);
+        
+                modal.focus()
+                })
+        
+            });
+        
+      </script>
+      
+    {% endblock %}
+
+
+
 
 
 {% endblock %}

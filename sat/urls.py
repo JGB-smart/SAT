@@ -28,6 +28,7 @@ urlpatterns = [
     path('usuarios/', include('usuarios.urls')),
     path('tareas/', include('tareas.urls')),
     path('categorias/', include('categorias.urls')),
+    path('estadisticas/', include('estadisticas.urls')),
     # path('', include('example.urls')),
 ]
 
