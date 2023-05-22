@@ -222,8 +222,17 @@ def EliminarTarea(request, pk):
         messages.success(request,"Tarea eliminada")
         return redirect('lista_tareas')
     else:
-        messages.error(request,"Ha Ocurrido un error!")
+        messages.error(request,"No esta Autorizado para realizar esta acción!")
         return redirect('lista_tareas')
+
+
+
+
+
+
+
+
+
 
 
 def EditarTarea(request, pk):
@@ -265,6 +274,10 @@ def EditarTarea(request, pk):
     else:
         messages.error(request,"No esta Autorizado para realizar esta acción!")
         return redirect('lista_tareas')      
+
+
+
+
 
 
 
