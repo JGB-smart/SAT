@@ -1,0 +1,56 @@
+{% extends "home.html"%}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block link %}
+        
+{% endblock%}
+
+{% block title %} Editar Tarea {% endblock %}
+
+{% block content %}
+    
+    <h3>Editar Tarea</h3>
+
+    <br>
+        <div class="row">
+
+            
+            <div class="col-12 col-md-7 offset-md-3">
+
+                <div class="card">
+
+                    <div class="card-body">
+
+                        <form action="" method="post">
+                            {% csrf_token %}
+                
+                        
+                            {{ form|crispy }}
+                            <div class="text-center">
+                                <input class="btn btn-success" type="submit" value="Actualizar">
+                                &ensp;
+                                <a href="{% url 'lista_tareas' %} " class="btn btn-danger">Cancelar</a>
+                            </div>
+                
+                        </form>
+    
+                    </div>
+
+
+                </div>
+ 
+            </div>
+
+        </div>
+
+
+        <br>
+        
+
+
+  
+
+   
+{% endblock %}

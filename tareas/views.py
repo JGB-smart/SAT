@@ -212,7 +212,7 @@ def EliminarTarea(request, pk):
     tarea = get_object_or_404(Tareas, id = pk)
     rol = request.user.groups.all().values('name')
     verifica = Autorizacion(rol)
-    
+
     if tarea.CreadaPor == request.user:
         tarea.delete()
         messages.success(request,"Tarea eliminada")
@@ -226,8 +226,45 @@ def EliminarTarea(request, pk):
         return redirect('lista_tareas')
 
 
+def EditarTarea(request, pk):
+    tarea = get_object_or_404(Tareas,id = pk)                                       # obtencion del objeto
+    
+    rol = request.user.groups.all().values('name')                                  #3 Verificaion del Rol
+    verifica = Autorizacion(rol)
+
+    if verifica == 1 or verifica == 2 or tarea.user == request.user:                   # Verificaion del rol o del usuario asignado
+        
+        if verifica == 1 or verifica == 2:                                             # Condicional que control el form que pinta el get
+            data = {
+                    'form': TareasForm(instance=tarea)
+                }
+        else:
+            data = {
+                    'form': TareasForm2(instance=tarea)
+                } 
 
 
+        if request.method == 'GET':
+            
+
+            return render(request,'editar_tarea.html',data)
+        
+        elif request.method == 'POST':
+            if verifica == 1 or verifica == 2:                                              # Condicional que controla el form que guarda el post
+                form = TareasForm(data = request.POST, instance=tarea,files=request.FILES)
+            else:
+                form = TareasForm2(data = request.POST, instance=tarea,files=request.FILES)
+            if form.is_valid():
+                form.save()
+                messages.success(request,"Tarea Editada")
+                return redirect('lista_tareas')
+            else:
+                messages.error(request,"Ha Ocurrido un error!")
+                data['form'] = form
+                return render(request,'editar_tarea.html',data)
+    else:
+        messages.error(request,"No esta Autorizado para realizar esta acción!")
+        return redirect('lista_tareas')      
 
 
 
