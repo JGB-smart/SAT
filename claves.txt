@@ -20,7 +20,7 @@ pass: gerente_1234
 
 4 - Trabajadores:
 
-username: Alejandro
+username: Alejandrox
 pass: trabajador_1234
 
 username: Carlox
