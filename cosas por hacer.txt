@@ -1,17 +1,17 @@
 Funcionalidad:
 
 
-3) Realizar modulos de eliminación y edición de Tareas
+1) 
 
-4) Realizar Modulo Profile
+2) Realizar Modulo Profile
 
-5) Realizar módulo Comentarios
+3) Realizar módulo Comentarios
 
-6) Poner en funcionamiento los Charts y habilitar el modulo de estadisticas
+4) Poner en funcionamiento los Charts y habilitar el modulo de estadisticas
 
-7) Realizar el modulo Calificaciones (OPCIONAL)
+5) Realizar el modulo Calificaciones (OPCIONAL)
 
-8) Arreglar funciones de eliminar, que aparezca una ventana emergente antes eliminar un objeto
+
 
 
 Seguridad:
