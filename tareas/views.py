@@ -228,15 +228,25 @@ def EliminarTarea(request, pk):
     tarea = get_object_or_404(Tareas, id = pk)
     rol = request.user.groups.all().values('name')
     verifica = Autorizacion(rol)
+    verifica_tarea = Tarea_Autorizacion(pk)
+    
 
     if verifica == 1:
         tarea.delete()
         messages.success(request,"Tarea eliminada")
         return redirect('lista_tareas')
-    if verifica == 2:
-        tarea.delete()
-        messages.success(request,"Tarea eliminada")
-        return redirect('lista_tareas')
+    if verifica == 2: 
+        if not verifica_tarea == 1:
+            tarea.delete()
+            messages.success(request,"Tarea eliminada")
+            return redirect('lista_tareas')
+        if verifica_tarea == 2 and tarea.CreadaPor == request.user:
+            tarea.delete()    
+            messages.success(request,"Tarea eliminada")
+            return redirect('lista_tareas')
+        else:
+            messages.error(request,"No esta Autorizado para realizar esta acción!")    
+            return redirect('lista_tareas')
     else:
         messages.error(request,"No esta Autorizado para realizar esta acción!")
         return redirect('lista_tareas')
@@ -314,3 +324,43 @@ def Autorizacion(rol):                                     # Método que verific
             if grupo['name'] in Trabajadores:
 
                 return 3
+
+
+
+
+
+
+def Tarea_Autorizacion(pk):
+
+    tarea = Tareas.objects.filter(id = pk).values('tarea','CreadaPor__username','CreadaPor__groups__name')
+
+    grupo = tarea[0]['CreadaPor__groups__name']
+
+
+    if grupo == 'Directores':
+        return 1
+    if grupo == 'Gerentes':
+        return 2
+    if grupo == 'Trabajadores':
+        return 3
+
+
+
+    
+    
+    
+    # Directores = ['Directores']
+    # Gerentes = ['Gerentes']
+    # Trabajadores = ['Trabajadores']
+        
+    # for grupo in tarea[0]['CreadaPor__groups__name']:
+    #     if grupo['name'] in Directores:
+
+    #          return 1
+    #     if grupo['name'] in Gerentes:
+
+    #         return 2  
+    #     if grupo['name'] in Trabajadores:
+
+    #         return 3
+    
