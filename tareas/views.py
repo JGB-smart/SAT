@@ -94,9 +94,9 @@ class CrearTarea(View):
                     post.porcentaje = 0
                 
                 
-                if not post.status_id:                            # Creacion del status inicial por default
+                # if not post.status_id:                            # Creacion del status inicial por default
                     
-                    post.status_id = 1                           
+                #     post.status_id = 1                           
 
 
                 post.save()

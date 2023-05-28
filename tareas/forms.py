@@ -14,7 +14,7 @@ class TareasForm(forms.ModelForm):
         fields =  '__all__'
 
 
-    status = forms.ModelChoiceField(label="Status",queryset= Status.objects.all().exclude(status = 'No_Iniciada'),required = False,widget=forms.Select(attrs={'class': 'form-control'}))
+    status = forms.ModelChoiceField(label="Status",queryset= Status.objects.all(),required = True,widget=forms.Select(attrs={'class': 'form-control'}))
     Ffinal = forms.DateField(label="Fecha Final",widget=forms.DateInput(attrs={'class': 'form-control','placeholder' : '20/5/2023'}))
     CreadaPor = forms.ModelChoiceField(label=False,queryset=User.objects.all(),disabled = True, required = False,widget=forms.Select(attrs={'class': 'form-control','hidden' : True}))
     user = forms.ModelChoiceField(label="Asignar",queryset=User.objects.all())
@@ -38,7 +38,7 @@ class TareasForm2(forms.ModelForm):
         fields =  '__all__'
 
 
-    status = forms.ModelChoiceField(label="Status",queryset= Status.objects.all().exclude(status = 'No_Iniciada').exclude(status = 'Re_abierta').exclude(status = 'Revisión').exclude(status='Finalizada'),required = False,widget=forms.Select(attrs={'class': 'form-control'}))
+    status = forms.ModelChoiceField(label="Status",queryset= Status.objects.all().exclude(status = 'Re_abierta').exclude(status = 'Revisión').exclude(status='Finalizada'),required = False,widget=forms.Select(attrs={'class': 'form-control'}))
     Ffinal = forms.DateField(label="Fecha Final",widget=forms.DateInput(attrs={'class': 'form-control','placeholder' : '20/5/2023'}))
     CreadaPor = forms.ModelChoiceField(label=False,queryset=User.objects.all(),disabled = True, required = False,widget=forms.Select(attrs={'class': 'form-control','hidden' : True}))
     user = forms.ModelChoiceField(label=False,queryset=User.objects.all(),disabled = True, required = False,widget=forms.Select(attrs={'class': 'form-control','hidden' : True}))
