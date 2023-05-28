@@ -5,8 +5,8 @@ from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView,ListView, CreateView, UpdateView, DeleteView, View
 from django.contrib import messages
 
-from .forms import TareasForm
-from .forms import TareasForm2
+from tareas.forms import TareasForm
+from tareas.forms import TareasForm2
 
 from tareas.models import Tareas,Status,Prioridad
 from categorias.models import Categorias
@@ -92,6 +92,12 @@ class CrearTarea(View):
                     post.porcentaje = 100
                 else:
                     post.porcentaje = 0
+                
+                
+                if not post.status_id:                            # Creacion del status inicial por default
+                    
+                    post.status_id = 1                           
+
 
                 post.save()
 
@@ -124,6 +130,11 @@ class CrearTarea(View):
                 else:
                     post.porcentaje = 0
 
+                if not post.status_id:                            # Creacion del status inicial por default
+                    
+                    post.status_id = 1                           
+
+
                 post.save()
 
                 #  Logica para guardar un Form.form
@@ -154,6 +165,11 @@ class CrearTarea(View):
                     post.porcentaje = 100
                 else:
                     post.porcentaje = 0
+
+                if not post.status_id:                            # Creacion del status inicial por default
+                    
+                    post.status_id = 1                           
+
 
                 post.save()
 
@@ -213,11 +229,11 @@ def EliminarTarea(request, pk):
     rol = request.user.groups.all().values('name')
     verifica = Autorizacion(rol)
 
-    if tarea.CreadaPor == request.user:
+    if verifica == 1:
         tarea.delete()
         messages.success(request,"Tarea eliminada")
         return redirect('lista_tareas')
-    elif verifica == 1:
+    if verifica == 2:
         tarea.delete()
         messages.success(request,"Tarea eliminada")
         return redirect('lista_tareas')
@@ -234,7 +250,7 @@ def EliminarTarea(request, pk):
 
 
 
-
+@login_required
 def EditarTarea(request, pk):
     tarea = get_object_or_404(Tareas,id = pk)                                       # obtencion del objeto
     

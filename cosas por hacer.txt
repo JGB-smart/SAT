@@ -31,6 +31,4 @@ Estética:
 
 2) Revisar imagen del registro por defecto del profile, y ponerla a funcioanar enel nabvar principal
 
-3) Cambiar iconos del SlideBar
-
-4) Revisar funciones del Sweet alert, para hacer alertas personalizadas por función
+3) Revisar funciones del Sweet alert, para hacer alertas personalizadas por función
