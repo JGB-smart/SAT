@@ -236,12 +236,14 @@ def EliminarTarea(request, pk):
         messages.success(request,"Tarea eliminada")
         return redirect('lista_tareas')
     if verifica == 2: 
-        if not verifica_tarea == 1:
-            tarea.delete()
+        if verifica_tarea == 1:
+            messages.error(request,"No esta Autorizado para realizar esta acción!") 
+            return redirect('lista_tareas')
+        if verifica_tarea == 2 and tarea.CreadaPor == request.user:    
             messages.success(request,"Tarea eliminada")
             return redirect('lista_tareas')
-        if verifica_tarea == 2 and tarea.CreadaPor == request.user:
-            tarea.delete()    
+        elif verifica_tarea == 3:
+            tarea.delete()
             messages.success(request,"Tarea eliminada")
             return redirect('lista_tareas')
         else:

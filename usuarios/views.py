@@ -85,14 +85,14 @@ class AgregarUsuario(View):
             
             return render(request,self.template_name,{"form":form, "form2":form2})
         
-    # @method_decorator(login_required)             #Puede agrupar decoradores
-    # def dispatch(self, request, *args, **kwargs):
+    @method_decorator(login_required)             #Puede agrupar decoradores
+    def dispatch(self, request, *args, **kwargs):
         
-    #     if not request.user.has_perm('auth.add_user'):
-    #           messages.success(request,"ACCESO DENEGADO")
-    #           return redirect('lista_usuarios')
+        if not request.user.has_perm('auth.add_user'):
+              messages.success(request,"ACCESO DENEGADO")
+              return redirect('lista_usuarios')
 
-    #     return super(AgregarUsuario,self).dispatch(request, *args, **kwargs)
+        return super(AgregarUsuario,self).dispatch(request, *args, **kwargs)
 
 
     
