@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-6!a5p4-&6$la%f(l#c7-xmp!f9$igqh166t7g9z^)kvgcbvb0y
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
 
@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'perfil',
     'usuarios',
     'tareas',
-    'categorias'
+    'categorias',
+    'estadisticas'
 ]
 
 
@@ -85,16 +86,30 @@ WSGI_APPLICATION = 'sat.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+'''
+# Configuracion para Sqlite
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'sat_dj',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'localhost',
-        'PORT': ''
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+'''
+
+# Configuracion para mysql
+DATABASES = {
+    'default': {
+    'ENGINE': 'django.db.backends.mysql',
+    'NAME': 'sat_dj',
+    'USER': 'root',
+    'PASSWORD': '',
+    'HOST': 'localhost',
+    'PORT': ''
+     }
+}
+
+
+
 
 
 # Password validation

@@ -154,7 +154,6 @@
 
             <!-- Main Content -->
             <div id="content">
-
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
@@ -374,7 +373,6 @@
 
                     <!-- Content Row -->
                     <div class="row">
-
                         <!-- Total de tareas registradas -->
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-primary shadow h-100 py-2">
@@ -393,76 +391,59 @@
                             </div>
                         </div>
 
-                        <!-- Earnings (Monthly) Card Example -->
+                        {% for cont in cont_status %}
+                        <!-- Total de los contadores tareas en cada status  -->
                         <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card border-left-primary shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Earnings (Annual)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Total de tareas en status {{cont.label}}</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{cont.value}}</div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-info shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks
-                                            </div>
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-info" role="progressbar"
-                                                            style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {% endfor %}
 
-                        <!-- Pending Requests Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Pending Requests</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
                     <!-- Content Row -->
 
                     <div class="row">
-                        <!-- Pie Chart -->
+                        <!-- Pie Status Chart -->
+                        <div class="col-xl-4 col-lg-5">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary">Tareas por Status</h6>
+                            </div>
+                            <!-- Card Body -->
+                            <div class="card-body">
+                                    <div class="chart-pie pt-4 pb-2">
+                                        <canvas id="myPieChartStatus"
+                                        data-label='{{chart_stats.labels}}'
+                                        data-value='{{chart_stats.values}}'
+                                        ></canvas>
+                                    </div>
+                                    <div class="mt-4 text-center small pie-legend-color-list">
+                                        {% for label in chart_stats.labels %}
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle"></i> {{label}}
+                                        </span>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pie Prioridad Chart -->
                         <div class="col-xl-4 col-lg-5">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
@@ -499,35 +480,7 @@
                             </div>
                         </div>
 
-                        <!-- Pie Chart -->
-                        <div class="col-xl-4 col-lg-5">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Tareas por Status</h6>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    <div class="chart-pie pt-4 pb-2">
-                                        <canvas id="myPieChartStatus"
-                                        data-label='{{chart_stats.labels}}'
-                                        data-value='{{chart_stats.values}}'
-                                        ></canvas>
-                                    </div>
-                                    <div class="mt-4 text-center small pie-legend-color-list">
-                                        {% for label in chart_stats.labels %}
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle"></i> {{label}}
-                                        </span>
-                                        {% endfor %}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <!-- Pie Chart -->
+                        <!-- Pie Categoria Chart -->
                         <div class="col-xl-4 col-lg-5">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
@@ -559,29 +512,28 @@
 
 
                     <div class="row">
-
-                            <!-- Area Chart -->
-                            <div class="col-xl-12 col-lg-12">
+                        <!-- Area Chart -->
+                        <div class="col-xl-12 col-lg-12">
                             <!-- Bar Chart -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Desempeño mensual</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Número de casos mensuales (finalizados)</h6>
                                 </div>
                                 <div class="card-body">
                                     <div class="chart-bar">
-                                        <canvas id="myBarChart"></canvas>
+                                        <canvas id="myBarChart"
+                                        data-label='{{mes_chart.labels}}'
+                                        data-value='{{mes_chart.values}}'
+                                        data-max='{{mes_chart.maximo}}'
+                                        ></canvas>
                                     </div>
                                     <hr>
                                     <!-- Styling for the bar chart can be found in the
                                     <code>/js/demo/chart-bar-demo.js</code> file. -->
                                 </div>
                             </div>
-
-
-                            </div>
+                        </div>
                     </div>
-
-
 
 
                  {% endblock %}   
@@ -680,10 +632,9 @@
     <script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
 
     <!-- Page level custom scripts -->
-    <script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
-    <!-- <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script> -->
-
-    <script src="{% static 'js/demo/chart-bar-demo.js' %}"></script>
+    <!-- <script src="{% static 'js/demo/chart-area.js' %}"></script> -->
+    <script src="{% static 'js/demo/chart-pie.js' %}"></script>
+    <script src="{% static 'js/demo/chart-bar.js' %}"></script>
 
 
     <!-- Import Tables -->
@@ -705,53 +656,14 @@
     <!-- Script Modal -->
     <script type="text/javascript">
 
-function setCharts(chartID){
-
-        // Set new default font family and font color to mimic Bootstrap's default styling
-        Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
-        Chart.defaults.global.defaultFontColor = '#858796';
-
-        // Pie Chart Example
-        var ctx = document.getElementById(chartID);
-
-        var myPieChart = new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: ctx.dataset.label.replace(/[\[\]']/g, "").split(", "), // Valores de dinámicos desde la DB
-                datasets: [{
-                    data: JSON.parse(ctx.dataset.value), // Valores de dinámicos desde la DB
-                    backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc', '#f6c23e', '#858796', '#0060df', '#ae5b02'],
-                    hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf','#cea233', '#676975','#003eaa','#8e4a01'],
-                    hoverBorderColor: "rgba(234, 236, 244, 1)",
-                }],
-            },
-            options: {
-                maintainAspectRatio: false,
-                tooltips: {
-                    backgroundColor: "rgb(255,255,255)",
-                    bodyFontColor: "#858796",
-                    borderColor: '#dddfeb',
-                    borderWidth: 1,
-                    xPadding: 15,
-                    yPadding: 15,
-                    displayColors: false,
-                    caretPadding: 10,
-                },
-                legend: {
-                    display: false
-                },
-                cutoutPercentage: 80,
-            },
-        });
-    }
-
-
 
 setCharts('myPieChartPrioridad');
 
 setCharts('myPieChartStatus');
 
 setCharts('myPieChartCategoria');
+
+setBarCharts('myBarChart');
 
 
 </script>

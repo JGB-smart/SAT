@@ -35,7 +35,8 @@ function setAreaCharts(chartID){
   var myLineChart = new Chart(ctx, {
     type: 'line',
     data: {
-      labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+      labels: ctx.dataset.label.replace(/[\[\]']/g, "").split(", "), // Valores de dinámicos desde la DB
+      //labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
       datasets: [{
         label: "Earnings",
         lineTension: 0.3,
@@ -49,7 +50,8 @@ function setAreaCharts(chartID){
         pointHoverBorderColor: "rgba(78, 115, 223, 1)",
         pointHitRadius: 10,
         pointBorderWidth: 2,
-        data: [0, 10000, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 40000],
+        data: JSON.parse(ctx.dataset.value), // Valores de dinámicos desde la DB
+        //data: [0, 10000, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 40000],
       }],
     },
     options: {
