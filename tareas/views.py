@@ -264,10 +264,12 @@ def EliminarTarea(request, pk):
 
 @login_required
 def EditarTarea(request, pk):
+    
     tarea = get_object_or_404(Tareas,id = pk)                                       # obtencion del objeto
     
     rol = request.user.groups.all().values('name')                                  #3 Verificaion del Rol
     verifica = Autorizacion(rol)
+    verifica_tarea = Tarea_Autorizacion(pk)
 
     if verifica == 1 or verifica == 2 or tarea.user == request.user:                   # Verificaion del rol o del usuario asignado
         
@@ -281,16 +283,43 @@ def EditarTarea(request, pk):
                 } 
 
 
+        if verifica == 2 and verifica_tarea == 1:                                    ## Condicional que controla el acceso de gerente a tareas hechas por un director
+            if not tarea.user == request.user:
+                messages.error(request,"No esta Autorizado para realizar esta acción!")    
+                return redirect('lista_tareas')
+
         if request.method == 'GET':
             
 
             return render(request,'editar_tarea.html',data)
         
         elif request.method == 'POST':
-            if verifica == 1 or verifica == 2:                                              # Condicional que controla el form que guarda el post
+            if verifica == 1:
                 form = TareasForm(data = request.POST, instance=tarea,files=request.FILES)
+            elif verifica == 2:                                              # Condicional que controla el form que guarda el post
+                tarea_status = get_object_or_404(Status,id = request.POST['status'])
+                asignado = get_object_or_404(User,id = request.POST['user'])
+                if(tarea.user == request.user and (tarea_status.status == 'Revisión' or tarea_status.status == 'Finalizada' or tarea_status.status == 'Re_abierta')):
+                    messages.error(request,"Su nivel de usuario no se puede autoevaluar")    
+                    return redirect('lista_tareas')
+                elif verifica_tarea == 1 and tarea.user == request.user:
+                    if not asignado == request.user:
+                        messages.error(request,"No tiene permiso para reasignar esta tarea")    
+                        return redirect('lista_tareas')
+                    else:
+                        form = TareasForm(data = request.POST, instance=tarea,files=request.FILES)
+                # elif verifica_tarea == 1 and tarea.user == request.user:
+                #     if request.POST['user'] == request.user.id:
+                #         messages.error(request,"No tiene permisos para reasignar esta tarea")    
+                #         return redirect('lista_tareas')  
+                else:
+                    form = TareasForm(data = request.POST, instance=tarea,files=request.FILES)
+                    # print(request.POST['user'])
             else:
                 form = TareasForm2(data = request.POST, instance=tarea,files=request.FILES)
+            
+            
+            
             if form.is_valid():
                 form.save()
                 messages.success(request,"Tarea Editada")
@@ -301,9 +330,41 @@ def EditarTarea(request, pk):
                 return render(request,'editar_tarea.html',data)
     else:
         messages.error(request,"No esta Autorizado para realizar esta acción!")
-        return redirect('lista_tareas')      
+        return redirect('lista_tareas')    
+   
 
 
+
+        # if verifica == 1:                                                               # Condicionales de Segundo Control de acceso que comprueba quien tiene acesso a la tarea 
+        #     if request.method == 'GET':                   
+        #         return render(request,'editar_tarea.html',data)       
+        
+        # if verifica == 2:
+     
+     
+        #     if verifica_tarea == 2 and tarea.CreadaPor == request.user:                # Caso de creación propia del gerente
+        #         if request.method == 'GET':                   
+        #             return render(request,'editar_tarea.html',data)
+        #     if tarea.user == request.user:                                             # Caso de asignacion al gerente
+        #         if request.method == 'GET':                   
+        #             return render(request,'editar_tarea.html',data)
+                    
+     
+        #     if verifica_tarea == 1:
+        #         messages.error(request,"No esta Autorizado para realizar esta acción!")    
+        #         return redirect('lista_tareas')        
+            
+            
+        #     if verifica_tarea == 3:
+        #         if request.method == 'GET':                   
+        #             return render(request,'editar_tarea.html',data)
+        #     else:
+        #         messages.error(request,"No esta Autorizado para realizar esta acción!")    
+        #         return redirect('lista_tareas')
+
+        # if verifica == 3:
+        #     if request.method == 'GET':                   
+        #         return render(request,'editar_tarea.html',data)
 
 
 
