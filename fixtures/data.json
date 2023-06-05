@@ -1,0 +1,79 @@
+[
+    {
+        "pk": 1,
+        "model": "tareas.prioridad",
+        "fields": {
+          "prioridad": "Importante_Urgente"
+        }
+      },
+      {
+        "pk": 2,
+        "model": "tareas.prioridad",
+        "fields": {
+          "prioridad": "Importante_NoUrgente"
+        }
+      },
+      {
+        "pk": 3,
+        "model": "tareas.prioridad",
+        "fields": {
+          "prioridad": "NoImportante_Urgente"
+        }
+      },
+      {
+        "pk": 4,
+        "model": "tareas.prioridad",
+        "fields": {
+          "prioridad": "NoImportante_NoUrgente"
+        }
+      },
+      {
+        "pk": 1,
+        "model": "tareas.status",
+        "fields": {
+          "status": "No_Iniciada"
+        }
+      },
+      {
+        "pk": 2,
+        "model": "tareas.status",
+        "fields": {
+          "status": "En_Progreso"
+        }
+      },
+      {
+        "pk": 3,
+        "model": "tareas.status",
+        "fields": {
+          "status": "Completada"
+        }
+      },
+      {
+        "pk": 4,
+        "model": "tareas.status",
+        "fields": {
+          "status": "Finalizada"
+        }
+      },
+      {
+        "pk": 5,
+        "model": "tareas.status",
+        "fields": {
+          "status": "Revisión"
+        }
+      },
+      {
+        "pk": 6,
+        "model": "tareas.status",
+        "fields": {
+          "status": "Re_abierta"
+        }
+      },
+      {
+        "pk": 7,
+        "model": "tareas.status",
+        "fields": {
+          "status": "Desestimada"
+        }
+      }       
+]
