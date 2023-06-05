@@ -1,15 +1,14 @@
 Funcionalidad:
 
 
-1) 
 
-2) Realizar Modulo Profile
+1) Realizar Modulo Profile
 
 3) Realizar módulo Comentarios
 
 4) Poner en funcionamiento los Charts y habilitar el modulo de estadisticas
 
-5) Realizar el modulo Calificaciones (OPCIONAL)
+6) Realizar el modulo Calificaciones (OPCIONAL)
 
 
 
@@ -18,11 +17,8 @@ Seguridad:
 
 1) Habilitar restricciones de roles por modulo
 
-2) Restringir formularios dependiendo del rol
 
-3) Restringir adición de tareas y Usuarios dependiendo del rol
-
-5) Revisar si el login required esta incrustado en todos los modulos
+2) Revisar si el login required esta incrustado en todos los modulos
 
 
 Estética:
