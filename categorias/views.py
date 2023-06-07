@@ -26,9 +26,9 @@ class ListadoCategorias(ListView):
                                                 
     @method_decorator(login_required)             #Puede agrupar decoradores
     def dispatch(self, request, *args, **kwargs):
-        # if not request.user.has_perm('productos.view_productos'):
-        #       messages.success(request,"ACCESO DENEGADO")
-        #       return redirect('home')
+        if not request.user.has_perm('categorias.view_categorias'):
+              messages.success(request,"ACCESO DENEGADO")
+              return redirect('lista_tareas')
         #print(Perfil.objects.select_related('user').query)
         #print(User.objects.prefetch_related('username').query)
         # print(Group.users.all())
@@ -59,25 +59,44 @@ class AgregarCategoria(View):
             #  for msg in form.error_messages:
             #     messages.error(request, form.error_messages[msg])
             return render(request,self.template_name,{"form":form,})
-        
+
+    
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.has_perm('categorias.add_categorias'):
+              messages.success(request,"ACCESO DENEGADO")
+              return redirect('lista_tareas')
+
+        return super( AgregarCategoria,self).dispatch(request, *args, **kwargs)    
+
+
+
 @login_required
 def EliminarCategoria(request, pk):
-    categoria = get_object_or_404(Categorias, id = pk)
-    categoria.delete()
-    messages.success(request,"Categoría eliminada")
-    return redirect('lista_categorias')
+
+    
+    if not request.user.has_perm('categorias.delete_categorias'):
+              messages.success(request,"ACCESO DENEGADO")
+              return redirect('lista_tareas')
+    else:
+        categoria = get_object_or_404(Categorias, id = pk)
+        categoria.delete()
+        messages.success(request,"Categoría eliminada")
+        return redirect('lista_categorias')
+
+
 
 
 
 class EditarCategoria(UpdateView):
     model = Categorias
     form_class =  CategoriasForm
-    template_name = 'agg_usuarios.html'
+    template_name = 'agg_categorias.html'
     success_url= reverse_lazy('lista_categorias')
     
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
-        # if not request.user.has_perm('productos.change_productos'):
-        #       messages.success(request,"ACCESO DENEGADO")
-        #       return redirect('productos')
+        if not request.user.has_perm('categorias.change_categorias'):
+              messages.success(request,"ACCESO DENEGADO")
+              return redirect('lista_tareas')
         return super(EditarCategoria,self).dispatch(request, *args, **kwargs)

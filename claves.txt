@@ -18,6 +18,9 @@ pass: dejame_entrar_12345
 username: Karinax
 pass: gerente_1234
 
+username: toyotax
+pass: gerente_1234
+
 4 - Trabajadores:
 
 username: Alejandrox
