@@ -1,12 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView,ListView, CreateView, UpdateView, DeleteView, View
 from django.contrib import messages
 
-from .forms import TareasForm
-from .forms import TareasForm2
+from tareas.forms import TareasForm
+from tareas.forms import TareasForm2
 
 from tareas.models import Tareas,Status,Prioridad
 from categorias.models import Categorias
@@ -58,7 +58,7 @@ class CrearTarea(View):
         verifica = Autorizacion(rol)
 
         
-        
+        print(verifica)
         if verifica == 1:
             form = TareasForm()
             return render(request,self.template_name,{"form":form})
@@ -68,6 +68,8 @@ class CrearTarea(View):
         if verifica == 3:
             form = TareasForm2()
             return render(request,self.template_name,{"form":form})
+        else:
+            return redirect('lista_tareas')
         
         
 
@@ -90,6 +92,12 @@ class CrearTarea(View):
                     post.porcentaje = 100
                 else:
                     post.porcentaje = 0
+                
+                
+                # if not post.status_id:                            # Creacion del status inicial por default
+                    
+                #     post.status_id = 1                           
+
 
                 post.save()
 
@@ -121,6 +129,11 @@ class CrearTarea(View):
                     post.porcentaje = 100
                 else:
                     post.porcentaje = 0
+
+                if not post.status_id:                            # Creacion del status inicial por default
+                    
+                    post.status_id = 1                           
+
 
                 post.save()
 
@@ -153,6 +166,11 @@ class CrearTarea(View):
                 else:
                     post.porcentaje = 0
 
+                if not post.status_id:                            # Creacion del status inicial por default
+                    
+                    post.status_id = 1                           
+
+
                 post.save()
 
                 #  Logica para guardar un Form.form
@@ -168,7 +186,8 @@ class CrearTarea(View):
                 #     messages.error(request, form.error_messages[msg])
 
                 return render(request,self.template_name,{"form":form})
-            
+        else:
+            return redirect('lista_tareas')    
               
         
         
@@ -205,6 +224,152 @@ class CrearTarea(View):
 
 
 
+def EliminarTarea(request, pk):
+    tarea = get_object_or_404(Tareas, id = pk)
+    rol = request.user.groups.all().values('name')
+    verifica = Autorizacion(rol)
+    verifica_tarea = Tarea_Autorizacion(pk)
+    
+
+    if verifica == 1:
+        tarea.delete()
+        messages.success(request,"Tarea eliminada")
+        return redirect('lista_tareas')
+    if verifica == 2: 
+        if verifica_tarea == 1:
+            messages.error(request,"No esta Autorizado para realizar esta acción!") 
+            return redirect('lista_tareas')
+        if verifica_tarea == 2 and tarea.CreadaPor == request.user:    
+            messages.success(request,"Tarea eliminada")
+            return redirect('lista_tareas')
+        elif verifica_tarea == 3:
+            tarea.delete()
+            messages.success(request,"Tarea eliminada")
+            return redirect('lista_tareas')
+        else:
+            messages.error(request,"No esta Autorizado para realizar esta acción!")    
+            return redirect('lista_tareas')
+    else:
+        messages.error(request,"No esta Autorizado para realizar esta acción!")
+        return redirect('lista_tareas')
+
+
+
+
+
+
+
+
+
+
+@login_required
+def EditarTarea(request, pk):
+    
+    tarea = get_object_or_404(Tareas,id = pk)                                       # obtencion del objeto
+    
+    rol = request.user.groups.all().values('name')                                  #3 Verificaion del Rol
+    verifica = Autorizacion(rol)
+    verifica_tarea = Tarea_Autorizacion(pk)
+
+    if verifica == 1 or verifica == 2 or tarea.user == request.user:                   # Verificaion del rol o del usuario asignado
+        
+        if verifica == 1 or verifica == 2:                                             # Condicional que control el form que pinta el get
+            data = {
+                    'form': TareasForm(instance=tarea)
+                }
+        else:
+            data = {
+                    'form': TareasForm2(instance=tarea)
+                } 
+
+
+        if verifica == 2 and verifica_tarea == 1:                                    ## Condicional que controla el acceso de gerente a tareas hechas por un director
+            if not tarea.user == request.user:
+                messages.error(request,"No esta Autorizado para realizar esta acción!")    
+                return redirect('lista_tareas')
+
+        if request.method == 'GET':
+            
+
+            return render(request,'editar_tarea.html',data)
+        
+        elif request.method == 'POST':
+            if verifica == 1:
+                form = TareasForm(data = request.POST, instance=tarea,files=request.FILES)
+            elif verifica == 2:                                              # Condicional que controla el form que guarda el post
+                tarea_status = get_object_or_404(Status,id = request.POST['status'])
+                asignado = get_object_or_404(User,id = request.POST['user'])
+                if(tarea.user == request.user and (tarea_status.status == 'Revisión' or tarea_status.status == 'Finalizada' or tarea_status.status == 'Re_abierta')):
+                    messages.error(request,"Su nivel de usuario no se puede autoevaluar")    
+                    return redirect('lista_tareas')
+                elif verifica_tarea == 1 and tarea.user == request.user:
+                    if not asignado == request.user:
+                        messages.error(request,"No tiene permiso para reasignar esta tarea")    
+                        return redirect('lista_tareas')
+                    else:
+                        form = TareasForm(data = request.POST, instance=tarea,files=request.FILES)
+                # elif verifica_tarea == 1 and tarea.user == request.user:
+                #     if request.POST['user'] == request.user.id:
+                #         messages.error(request,"No tiene permisos para reasignar esta tarea")    
+                #         return redirect('lista_tareas')  
+                else:
+                    form = TareasForm(data = request.POST, instance=tarea,files=request.FILES)
+                    # print(request.POST['user'])
+            else:
+                form = TareasForm2(data = request.POST, instance=tarea,files=request.FILES)
+            
+            
+            
+            if form.is_valid():
+                form.save()
+                messages.success(request,"Tarea Editada")
+                return redirect('lista_tareas')
+            else:
+                messages.error(request,"Ha Ocurrido un error!")
+                data['form'] = form
+                return render(request,'editar_tarea.html',data)
+    else:
+        messages.error(request,"No esta Autorizado para realizar esta acción!")
+        return redirect('lista_tareas')    
+   
+
+
+
+        # if verifica == 1:                                                               # Condicionales de Segundo Control de acceso que comprueba quien tiene acesso a la tarea 
+        #     if request.method == 'GET':                   
+        #         return render(request,'editar_tarea.html',data)       
+        
+        # if verifica == 2:
+     
+     
+        #     if verifica_tarea == 2 and tarea.CreadaPor == request.user:                # Caso de creación propia del gerente
+        #         if request.method == 'GET':                   
+        #             return render(request,'editar_tarea.html',data)
+        #     if tarea.user == request.user:                                             # Caso de asignacion al gerente
+        #         if request.method == 'GET':                   
+        #             return render(request,'editar_tarea.html',data)
+                    
+     
+        #     if verifica_tarea == 1:
+        #         messages.error(request,"No esta Autorizado para realizar esta acción!")    
+        #         return redirect('lista_tareas')        
+            
+            
+        #     if verifica_tarea == 3:
+        #         if request.method == 'GET':                   
+        #             return render(request,'editar_tarea.html',data)
+        #     else:
+        #         messages.error(request,"No esta Autorizado para realizar esta acción!")    
+        #         return redirect('lista_tareas')
+
+        # if verifica == 3:
+        #     if request.method == 'GET':                   
+        #         return render(request,'editar_tarea.html',data)
+
+
+
+
+
 def Autorizacion(rol):                                     # Método que verifica el rol del usuario
 
 
@@ -222,3 +387,43 @@ def Autorizacion(rol):                                     # Método que verific
             if grupo['name'] in Trabajadores:
 
                 return 3
+
+
+
+
+
+
+def Tarea_Autorizacion(pk):
+
+    tarea = Tareas.objects.filter(id = pk).values('tarea','CreadaPor__username','CreadaPor__groups__name')
+
+    grupo = tarea[0]['CreadaPor__groups__name']
+
+
+    if grupo == 'Directores':
+        return 1
+    if grupo == 'Gerentes':
+        return 2
+    if grupo == 'Trabajadores':
+        return 3
+
+
+
+    
+    
+    
+    # Directores = ['Directores']
+    # Gerentes = ['Gerentes']
+    # Trabajadores = ['Trabajadores']
+        
+    # for grupo in tarea[0]['CreadaPor__groups__name']:
+    #     if grupo['name'] in Directores:
+
+    #          return 1
+    #     if grupo['name'] in Gerentes:
+
+    #         return 2  
+    #     if grupo['name'] in Trabajadores:
+
+    #         return 3
+    

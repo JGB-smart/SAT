@@ -1,28 +1,24 @@
 Funcionalidad:
 
 
-3) Realizar modulos de eliminación y edición de Tareas
 
-4) Realizar Modulo Profile
+1) Realizar Modulo Profile
 
-5) Realizar módulo Comentarios
+3) Realizar módulo Comentarios
 
-6) Poner en funcionamiento los Charts y habilitar el modulo de estadisticas
+4) Poner en funcionamiento los Charts y habilitar el modulo de estadisticas
 
-7) Realizar el modulo Calificaciones (OPCIONAL)
+6) Realizar el modulo Calificaciones (OPCIONAL)
 
-8) Arreglar funciones de eliminar, que aparezca una ventana emergente antes eliminar un objeto
+
 
 
 Seguridad:
 
 1) Habilitar restricciones de roles por modulo
 
-2) Restringir formularios dependiendo del rol
 
-3) Restringir adición de tareas y Usuarios dependiendo del rol
-
-5) Revisar si el login required esta incrustado en todos los modulos
+2) Revisar si el login required esta incrustado en todos los modulos
 
 
 Estética:
@@ -31,6 +27,4 @@ Estética:
 
 2) Revisar imagen del registro por defecto del profile, y ponerla a funcioanar enel nabvar principal
 
-3) Cambiar iconos del SlideBar
-
-4) Revisar funciones del Sweet alert, para hacer alertas personalizadas por función
+3) Revisar funciones del Sweet alert, para hacer alertas personalizadas por función
