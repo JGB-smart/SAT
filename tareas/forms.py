@@ -12,6 +12,7 @@ class TareasForm(forms.ModelForm):
     class Meta:
         model = Tareas
         fields =  '__all__'
+        exclude = ['Fterminada']
 
 
     status = forms.ModelChoiceField(label="Status",queryset= Status.objects.all(),required = True,widget=forms.Select(attrs={'class': 'form-control'}))
@@ -36,6 +37,7 @@ class TareasForm2(forms.ModelForm):
     class Meta:
         model = Tareas
         fields =  '__all__'
+        exclude = ['Fterminada']
 
 
     status = forms.ModelChoiceField(label="Status",queryset= Status.objects.all().exclude(status = 'Re_abierta').exclude(status = 'Revisión').exclude(status='Finalizada'),required = False,widget=forms.Select(attrs={'class': 'form-control'}))

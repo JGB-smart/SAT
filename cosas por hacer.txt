@@ -8,7 +8,9 @@ Funcionalidad:
 
 4) Poner en funcionamiento los Charts y habilitar el modulo de estadisticas
 
-6) Realizar el modulo Calificaciones (OPCIONAL)
+5) Realizar el modulo Calificaciones (OPCIONAL)
+
+6) Cambiar fecha final, automatizar campo cuando se finalice la tarea y que cuando la reabra se pona en null
 
 
 

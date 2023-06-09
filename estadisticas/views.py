@@ -34,8 +34,8 @@ class estadisticasView(View):
         nombres_meses = [mes.strftime('%B') for mes in meses_del_anio]
 
         # Consulta para obtener la cantidad de tareas por mes
-        tareas_por_mes = Tareas.objects.filter(Ffinal__year=anio_actual).annotate(
-            mes=ExtractMonth('Ffinal')).values('mes').annotate(total=Count('id'))
+        tareas_por_mes = Tareas.objects.filter(Fterminada__year=anio_actual).annotate(
+            mes=ExtractMonth('Fterminada')).values('mes').annotate(total=Count('id'))
 
         # Crear un diccionario para almacenar los totales de tareas por mes
         totales_por_mes = {mes: 0 for mes in nombres_meses}

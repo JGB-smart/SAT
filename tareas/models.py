@@ -35,7 +35,8 @@ class Tareas(models.Model):
     CreadaPor = models.ForeignKey(User,on_delete=models.CASCADE,related_name = 'creador_tarea')
     user = models.ForeignKey(User,on_delete=models.CASCADE,related_name = 'asignaciones')
     Fcreacion = models.DateTimeField(auto_now_add=True)
-    Ffinal = models.DateField()
+    Ffinal = models.DateField(help_text='fecha plazo')
+    Fterminada = models.DateField(help_text='fecha final', null=True,blank=True)
 
     def __str__(self):
         return self.tarea
