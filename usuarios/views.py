@@ -5,10 +5,12 @@ from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView,ListView, CreateView, UpdateView, DeleteView, View
 from django.contrib import messages
+from tareas.views import Autorizacion
 
 from django.contrib.auth.forms import UserCreationForm
 from .forms import RegistrationForm
 from .forms import RegistrationGroupForm
+from .forms import RegistrationGroupForm2
 
 from django.contrib.auth.models import Group
 from django.contrib.auth.models import User
@@ -63,15 +65,30 @@ class AgregarUsuario(View):
     
 
     def get(self,request):
+        rol = request.user.groups.all().values('name')
+        verifica = Autorizacion(rol)
         form = RegistrationForm()
-        form2 = RegistrationGroupForm()
+        if(verifica == 1):
+            form2 = RegistrationGroupForm()
+        else:
+            form2 = RegistrationGroupForm2()    
         
         return render(request,self.template_name,{"form":form, "form2":form2})
     
 
     def post(self,request):
+        
+        rol = request.user.groups.all().values('name')
+        verifica = Autorizacion(rol)
+        
         form = RegistrationForm(request.POST)                                            ## NO CAMBIARR!!!!!!!
-        form2 = RegistrationGroupForm()                                                   ## NO CAMBIARR!!!!!!!
+        
+        if(verifica == 1):
+            form2 = RegistrationGroupForm()
+        else:
+            form2 = RegistrationGroupForm2()
+                
+        
         if form.is_valid():
             user = form.save()
             group = Group.objects.get(id= request.POST['grupo'])

@@ -23,8 +23,12 @@ class RegistrationForm(UserCreationForm):
         }
 
 
-class RegistrationGroupForm(forms.Form):
+class RegistrationGroupForm(forms.Form):                                       # Formulario para registro de Users nivel director
 
     grupo = forms.ModelChoiceField(label="Grupo",queryset=Group.objects.all())
+
+class RegistrationGroupForm2(forms.Form):                                      # Formulario para registro de Users nivel Geremte
+
+    grupo = forms.ModelChoiceField(label="Grupo",queryset=Group.objects.all().exclude(name = 'Directores').exclude(name = 'Gerentes'))    
 
 
