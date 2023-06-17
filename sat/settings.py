@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'usuarios',
     'tareas',
     'categorias',
-    'estadisticas'
+    'estadisticas',
+    'comentarios'
 ]
 
 

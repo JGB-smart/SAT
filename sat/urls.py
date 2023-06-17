@@ -29,6 +29,7 @@ urlpatterns = [
     path('tareas/', include('tareas.urls')),
     path('categorias/', include('categorias.urls')),
     path('estadisticas/', include('estadisticas.urls')),
+    path('comentarios/', include('comentarios.urls')),
     # path('', include('example.urls')),
 ]
 
