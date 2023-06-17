@@ -58,6 +58,22 @@ def comentarios(request, pk):
         return render(request,'lista_comentarios.html',data)
     
     elif request.method == 'POST':
+
+
+        comentarios = Comentarios.objects.filter(tarea_id = pk)
+        tarea = get_object_or_404(Tareas,id = pk)
+
+        titulo = tarea.tarea 
+        categoria = tarea.categoria
+        # comentarios = Comentarios.objects.all()
+
+        data = {
+            'comentarios': comentarios,
+            'titulo': titulo,
+            'categoria' : categoria,
+            'form' : ComentariosForm()
+        }
+
         
         form = ComentariosForm(request.POST)
 
@@ -66,7 +82,7 @@ def comentarios(request, pk):
             post.tarea_id = pk
             post.user_id = request.user.id
             post.save()
-            return redirect('tarea_comentario')
+            return render(request,'lista_comentarios.html',data)
         else:
             return render(request,'lista_comentarios.html')
 
