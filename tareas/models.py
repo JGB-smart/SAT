@@ -34,7 +34,7 @@ class Tareas(models.Model):
     porcentaje = models.IntegerField(default=0)
     CreadaPor = models.ForeignKey(User,on_delete=models.CASCADE,related_name = 'creador_tarea')
     user = models.ForeignKey(User,on_delete=models.CASCADE,related_name = 'asignaciones')
-    Fcreacion = models.DateTimeField(auto_now_add=True)
+    Fcreacion = models.DateField(auto_now_add=True)
     Ffinal = models.DateField(help_text='fecha plazo')
     Fterminada = models.DateField(help_text='fecha final', null=True,blank=True)
 
