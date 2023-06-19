@@ -1,16 +1,20 @@
+# -*- coding: utf-8 -*-
 from django.shortcuts import get_object_or_404, render
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.views.generic import TemplateView,ListView, CreateView, UpdateView, DeleteView, View
 from django.contrib import messages
+from datetime import datetime
+
+from tareas.models import Tareas,Status,Prioridad, ArchivoTareas
+from categorias.models import Categorias
+from django.contrib.auth.models import User
+
+from django.views.generic import TemplateView,ListView, CreateView, UpdateView, DeleteView, View
 
 from tareas.forms import TareasForm
 from tareas.forms import TareasForm2
 
-from tareas.models import Tareas,Status,Prioridad
-from categorias.models import Categorias
-from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -36,12 +40,18 @@ class ListadoTareas(ListView):
         return super( ListadoTareas,self).dispatch(request, *args, **kwargs)
 
 
-
-
-
-
-
-
+class ListadoArchivoTareas(ListView):
+    '''
+    List Vire que devuelve la lista de las tareas archivadas en la tabla de archivo muerto
+    '''
+    model = ArchivoTareas
+    template_name = 'lista_archivo.html'
+    context_object_name = 'archivo'   
+    queryset=  ArchivoTareas.objects.all() 
+                                                
+    @method_decorator(login_required)         
+    def dispatch(self, request, *args, **kwargs):
+        return super( ListadoArchivoTareas,self).dispatch(request, *args, **kwargs)
 
 
 
@@ -254,14 +264,6 @@ def EliminarTarea(request, pk):
         return redirect('lista_tareas')
 
 
-
-
-
-
-
-
-
-
 @login_required
 def EditarTarea(request, pk):
     
@@ -318,12 +320,44 @@ def EditarTarea(request, pk):
             else:
                 form = TareasForm2(data = request.POST, instance=tarea,files=request.FILES)
             
-            
-            
             if form.is_valid():
                 form.save()
                 messages.success(request,"Tarea Editada")
-                return redirect('lista_tareas')
+
+                tarea_status = get_object_or_404(Status,id = request.POST['status'])
+
+                if(tarea_status.status != 'Finalizada'):
+                    return redirect('lista_tareas')
+                else:
+
+                    # Respaldar los valores al hitórico
+                    At = ArchivoTareas(
+                        tarea = tarea.tarea,
+                        descripcion = tarea.descripcion,
+                        status = tarea.status,
+                        prioridad = tarea.prioridad,
+                        categoria = tarea.categoria,
+                        porcentaje = tarea.porcentaje,
+                        CreadaPor = tarea.CreadaPor,
+                        user = tarea.user,
+                        Fcreacion = tarea.Fcreacion,
+                        Ffinal = tarea.Ffinal,
+                        Fterminada = datetime.now()
+                        )
+
+                    At.save()
+
+                    # Borrar la tarea de la tabla principal
+                    delete_tarea = Tareas.objects.get(pk=tarea.pk)
+                    delete_tarea.delete()
+
+                    # Retornar la lista de nuevo
+                    tareas=  Tareas.objects.all() 
+                    return render(request,'lista_tareas.html',{
+                        'tareas':tareas,
+                        'messages':False,
+                        'archived':At.pk})
+
             else:
                 messages.error(request,"Ha Ocurrido un error!")
                 data['form'] = form
@@ -427,3 +461,14 @@ def Tarea_Autorizacion(pk):
 
     #         return 3
     
+
+class CalificarTarea(View):
+    '''
+    Vista para calificación de las tareas después de fimalizarlas (archivarlas)
+    '''
+    def post(self,request):
+        tarea =  ArchivoTareas.objects.get(pk=request.POST['task']) 
+        tarea.calificacion = request.POST['rating']
+        tarea.save()
+
+        return redirect('lista_tareas')

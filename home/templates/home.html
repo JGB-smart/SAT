@@ -19,6 +19,10 @@
     <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
     <!-- <link href="{% static 'css/sb-admin-2.css' %}" rel="stylesheet"> -->
 
+    <!-- Custom styles for this template-->
+    <link href="{% static 'css/custom_sat.css' %}" rel="stylesheet">
+    <!-- <link href="{% static 'css/sb-admin-2.css' %}" rel="stylesheet"> -->
+
     
     <!-- Import Tablets-->
     <link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
@@ -102,6 +106,7 @@
                         <a class="collapse-item" href="{% url 'lista_tareas' %}">Listado</a>
                         <a class="collapse-item" href="{% url 'lista_categorias' %}">Categorias</a>
                         <a class="collapse-item" href="{% url 'tarea_comentario' %}">Comentarios</a>
+                        <a class="collapse-item" href="{% url 'lista_archivo' %}">Archivo</a>
                         <div class="collapse-divider"></div>
                     </div>
                 </div>

@@ -27,7 +27,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Categoria</th>
-                                <th>Acción</th>
+                                <th style="width:8%">Acción</th>
                             </tr>
                             </tr>
                         </thead>
@@ -45,8 +45,18 @@
                                     <td>{{ categoria.categoria}}</td>
                                     <td>
                                         <div class="text-center">
-                                            <a href="{% url 'editar_categoria' categoria.id %}" class="btn btn-info">Editar</a>
-                                            <a href="{% url 'eliminar_categoria' categoria.id %}" class="btn btn-danger">Eliminar</a>
+                                            <a 
+                                            title="Editar" 
+                                            href="{% url 'editar_categoria' categoria.id %}" 
+                                            class="btn btn-info btn-sm">
+                                            <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a
+                                            title="Eliminar" 
+                                            href="{% url 'eliminar_categoria' categoria.id %}" 
+                                            class="btn btn-danger btn-sm">
+                                                 <i class="fa fa-trash"></i>
+                                            </a>
                                         </div>
                                     </td>
                                 </tr>

@@ -48,3 +48,25 @@ class Tareas(models.Model):
 
 
 
+class ArchivoTareas(models.Model):
+
+    tarea =  models.CharField(max_length=150,verbose_name='archivo')
+    descripcion =  models.CharField(max_length=200,verbose_name='descripcion')
+    status = models.ForeignKey(Status, on_delete=models.CASCADE,related_name='status_archivo')
+    prioridad = models.ForeignKey(Prioridad, on_delete=models.CASCADE,related_name='prioridad_archivo')
+    categoria = models.ForeignKey(Categorias,on_delete=models.CASCADE, related_name='categorias_archivo')
+    porcentaje = models.IntegerField(default=0)
+    CreadaPor = models.ForeignKey(User,on_delete=models.CASCADE,related_name = 'creador_archivo')
+    user = models.ForeignKey(User,on_delete=models.CASCADE,related_name = 'user_archivo')
+    Fcreacion = models.DateTimeField(auto_now_add=True)
+    Ffinal = models.DateField(help_text='fecha plazo')
+    Fterminada = models.DateField(help_text='fecha final', null=True,blank=True)
+    calificacion = models.IntegerField(help_text='Calificación del la tarea', null=True,blank=True)
+
+    def __str__(self):
+        return self.tarea
+
+    class Meta:
+        verbose_name = 'ArchivoTarea'
+        verbose_name_plural = 'ArchivoTareas'
+        ordering = ['-id']

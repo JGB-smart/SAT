@@ -12,7 +12,7 @@
 {% block content %}
     
     <h3>Usuarios</h3>
-    <a href="{% url 'agregar_usuario' %}" class="btn btn-success">Agregar</a>
+    <a href="{% url 'agregar_usuario' %}" class="btn btn-success main-add-button" title="Agregar"> <i class="fa fa-plus"></i></a>
 
     {% if usuarios %}
         <!-- DataTales Example -->
@@ -33,7 +33,7 @@
                                 <th>Puesto</th>
                                 <th>Correo</th>
                                 <th>Telf</th>
-                                <th>Acción</th>
+                                <th style="width:7%">Acción</th>
                             </tr>
                             </tr>
                         </thead>
@@ -61,16 +61,16 @@
                                     <td>{{ usuario.perfil.telf }}</td>
                                     <td>
                                         <a 
-                                        title="Eliminar" 
+                                        title="Editar" 
                                         href=" {% url 'editar_usuario' usuario.id %}" 
-                                        class="btn btn-info">
+                                        class="btn btn-info btn-sm">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                         <!-- <a 
                                             href="{% url 'eliminar_usuario' usuario.id %}" 
                                             class="btn btn-danger">Eliminar</a> -->
 
-                                        <a class="btn btn-danger action-button" 
+                                        <a class="btn btn-danger action-button btn-sm" 
                                             title="Eliminar" 
                                             data-toggle="modal" 
                                             data-target="#myModal" 
