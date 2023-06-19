@@ -1,0 +1,52 @@
+[
+    {
+        "model": "tareas.status",
+        "pk": 1,
+        "fields": {
+            "status": "No_Iniciada"
+        }
+    },
+    {
+        "model": "tareas.status",
+        "pk": 2,
+        "fields": {
+            "status": "En_Progreso"
+        }
+    },
+    {
+        "model": "tareas.status",
+        "pk": 3,
+        "fields": {
+            "status": "Revisión"
+        }
+    },
+    {
+        "model": "tareas.status",
+        "pk": 4,
+        "fields": {
+            "status": "Finalizada"
+        }
+    },
+    {
+        "model": "tareas.status",
+        "pk": 5,
+        "fields": {
+            "status": "Re_abierta"
+        }
+    },
+    {
+        "model": "tareas.status",
+        "pk": 6,
+        "fields": {
+            "status": "Completada"
+        }
+    },
+    {
+        "model": "tareas.status",
+        "pk": 7,
+        "fields": {
+            "status": "Desestimada"
+        }
+    }
+]
+    

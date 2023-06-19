@@ -1,0 +1,63 @@
+.main-add-button{
+    margin-bottom: 16px;
+    margin-top: 10px;
+    width: 65px;
+}
+
+
+
+
+
+
+/***
+ *  Sistema de evaluación por estrellas 
+ * 
+ 
+ ***/
+ 
+ @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+ /* Styling h1 and links
+ ––––––––––––––––––––––––––––––––– */
+ .starrating h1[alt="Simple"] {color: white;}
+ .starrating  a[href], .starrating a[href]:hover {color: grey; font-size: 0.5em; text-decoration: none}
+ 
+ 
+
+ .starrating_title{
+    text-align: center;
+ }
+
+ .starrating{
+    margin: 36px 35px 34px 35px;
+ }
+
+ .starrating > input {display: none;}  /* Remove radio buttons */
+ 
+ .starrating > label:before { 
+   /*content: "\f005";  Star */
+   margin: 2px;
+   font-size: 8em !important;
+   font-family: FontAwesome;
+   display: inline-block; 
+ }
+ 
+
+ .starrating i{
+     font-size: 5rem !important;
+     margin-left: 6px;
+ }
+
+
+
+ .starrating > label
+ {
+   color: #ccc; /* Start color when not clicked */
+ }
+ 
+ .starrating > input:checked ~ label
+ { color: #ffca08 ; } /* Set yellow color when star checked */
+ 
+ .starrating > input:hover ~ label
+ { color: #ffca08 ;  } /* Set yellow color when star hover */
+ 
+ 

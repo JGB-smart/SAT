@@ -1,0 +1,31 @@
+[
+    {
+        "model": "tareas.prioridad",
+        "pk": 1,
+        "fields": {
+            "prioridad": "Importante_Urgente"
+        }
+    },
+    {
+        "model": "tareas.prioridad",
+        "pk": 2,
+        "fields": {
+            "prioridad": "Importante_NoUrgente"
+        }
+    },
+    {
+        "model": "tareas.prioridad",
+        "pk": 3,
+        "fields": {
+            "prioridad": "NoImportante_Urgente"
+        }
+    },
+    {
+        "model": "tareas.prioridad",
+        "pk": 4,
+        "fields": {
+            "prioridad": "NoImportante_NoUrgente"
+        }
+    }
+]
+    
