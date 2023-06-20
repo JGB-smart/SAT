@@ -7,6 +7,21 @@
 
 
 
+.align-items-box-center{
+  align-items: center !important;
+  text-align: center !important;
+  margin-bottom: -12px;
+}
+
+
+.items-box-icon{
+  margin-bottom: 7px;
+}
+
+.items-box-menu a:hover {
+  text-decoration: none !important;
+}
+
 
 
 /***
