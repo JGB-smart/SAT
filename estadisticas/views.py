@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import View
 
 from tareas.models import Status, Prioridad, Tareas, Categorias
+from tareas.models import ArchivoTareas
 
 
 
@@ -34,7 +35,7 @@ class estadisticasView(View):
         nombres_meses = [mes.strftime('%B') for mes in meses_del_anio]
 
         # Consulta para obtener la cantidad de tareas por mes
-        tareas_por_mes = Tareas.objects.filter(Fterminada__year=anio_actual).annotate(
+        tareas_por_mes = ArchivoTareas.objects.filter(Fterminada__year=anio_actual).annotate(
             mes=ExtractMonth('Fterminada')).values('mes').annotate(total=Count('id'))
 
         # Crear un diccionario para almacenar los totales de tareas por mes
