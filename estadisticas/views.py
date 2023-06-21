@@ -7,9 +7,12 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.views.generic import View
 
-from tareas.models import Status, Prioridad, Tareas, Categorias
-from tareas.models import ArchivoTareas
-
+from tareas.models import (
+    Status, 
+    Prioridad, 
+    Tareas, 
+    Categorias, 
+    ArchivoTareas)
 
 
 @login_required
@@ -61,12 +64,18 @@ class estadisticasView(View):
         # Contadores
 
         total_tareas = Tareas.objects.all().count() 
+        total_finalizadas = ArchivoTareas.objects.all().count() 
 
-        status = Status.objects.all()
+        status = Status.objects.all().exclude(status='Finalizada')
         counters_status = [ 
             {'label': i.status,
             'value': Tareas.objects.filter(status=i).count()} 
             for i in status]
+
+        counters_status.append(
+            {'label': "Finalizado",
+            'value': total_finalizadas} 
+            )   
 
         prioridad = Prioridad.objects.all()
         counters_prioridad = [ 
@@ -81,7 +90,6 @@ class estadisticasView(View):
             for i in categoria]
         
         lista_p_mes = self.obtener_tareas_por_mes()
-        
 
 
         return render(
@@ -107,33 +115,3 @@ class estadisticasView(View):
                 "maximo": lista_p_mes[1],
             },
             })
-    
-
-
-
-''''
-Contadores por status
-    Recorer las prioridades, 
-    y crear las cajas de contadores 
-
-chart_stats
-
-chart_prior:
-
-Grafico de tareas por mes
-========================
-========================
-
-tarea =  models.CharField(max_length=150,verbose_name='tarea')
-descripcion =  models.CharField(max_length=200,verbose_name='descripcion')
-status = models.ForeignKey(Status, on_delete=models.CASCADE,related_name='status_tarea')
-prioridad = models.ForeignKey(Prioridad, on_delete=models.CASCADE,related_name='prioridad_tarea')
-categoria = models.ForeignKey(Categorias,on_delete=models.CASCADE, related_name='categorias_tarea')
-porcentaje = models.IntegerField(default=0)
-CreadaPor = models.ForeignKey(User,on_delete=models.CASCADE,related_name = 'creador_tarea')
-user = models.ForeignKey(User,on_delete=models.CASCADE,related_name = 'asignaciones')
-Fcreacion = models.DateTimeField(auto_now_add=True)
-Ffinal = models.DateField()
-
-'''
-
