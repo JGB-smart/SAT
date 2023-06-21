@@ -7,8 +7,12 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.views.generic import View
 
-from tareas.models import Status, Prioridad, Tareas, Categorias, ArchivoTareas
-
+from tareas.models import (
+    Status, 
+    Prioridad, 
+    Tareas, 
+    Categorias, 
+    ArchivoTareas)
 
 
 @login_required
