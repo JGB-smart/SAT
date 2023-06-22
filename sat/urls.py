@@ -30,6 +30,7 @@ urlpatterns = [
     path('categorias/', include('categorias.urls')),
     path('estadisticas/', include('estadisticas.urls')),
     path('comentarios/', include('comentarios.urls')),
+    path('calificaciones/', include('calificaciones.urls')),
     # path('', include('example.urls')),
 ]
 
