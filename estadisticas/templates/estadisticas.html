@@ -23,6 +23,8 @@
     <!-- Import Tablets-->
     <link href="{% static 'vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
 
+
+
     {% block link %}
       
     {% endblock%}
@@ -73,7 +75,7 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
+                        <h6 class="collapse-header">Sub Módulos usuarios</h6>
                         <a class="collapse-item" href="{% url 'lista_usuarios'%}">Lista de usuarios</a>
                         <a class="collapse-item" href="{% url 'lista_usuarios_grupos'%}">Grupos</a>
                     </div>
@@ -98,7 +100,7 @@
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
+                        <h6 class="collapse-header">Sub Módulos Tareas</h6>
                         <a class="collapse-item" href="{% url 'lista_tareas' %}">Listado</a>
                         <a class="collapse-item" href="{% url 'lista_categorias' %}">Categorias</a>
                         <a class="collapse-item" href="{% url 'tarea_comentario' %}">Comentarios</a>
@@ -181,13 +183,13 @@
                     <ul class="navbar-nav ml-auto">
 
                         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                        <li class="nav-item dropdown no-arrow d-sm-none">
+                        <!-- <li class="nav-item dropdown no-arrow d-sm-none">
                             <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-search fa-fw"></i>
-                            </a>
+                            </a> -->
                             <!-- Dropdown - Messages -->
-                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                            <!-- <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
                                 aria-labelledby="searchDropdown">
                                 <form class="form-inline mr-auto w-100 navbar-search">
                                     <div class="input-group">
@@ -202,7 +204,7 @@
                                     </div>
                                 </form>
                             </div>
-                        </li>
+                        </li> -->
 
                         <!-- Nav Item - Alerts -->
                         <!-- <li class="nav-item dropdown no-arrow mx-1">
@@ -361,7 +363,7 @@
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Estadísticas</h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                        <a onclick="reporte();" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-download fa-sm text-white-50"></i> Generar Reporte</a>
                     </div>
 
@@ -651,16 +653,26 @@
     <script type="text/javascript">
 
 
-setCharts('myPieChartPrioridad');
+        setCharts('myPieChartPrioridad');
 
-setCharts('myPieChartStatus');
+        setCharts('myPieChartStatus');
 
-setCharts('myPieChartCategoria');
+        setCharts('myPieChartCategoria');
 
-setBarCharts('myBarChart');
+        setBarCharts('myBarChart');
+
+    </script>
+
+    <!-- Script de generacion de reportes -->
+    <script  type="text/javascript">
+
+        function reporte() {
+            window.print();
+            alert('Se genero el reporte!')
+        }
 
 
-</script>
+    </script>
 
 
 
