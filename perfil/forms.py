@@ -12,3 +12,8 @@ class EditPerfilForm(forms.ModelForm):
     class Meta:
         model = Perfil
         fields = ['image','telf']
+
+class EditPuestoForm(forms.ModelForm):
+    class Meta:
+        model = Perfil
+        fields = ['image','telf','puesto']        

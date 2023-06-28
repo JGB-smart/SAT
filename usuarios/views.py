@@ -114,20 +114,6 @@ class AgregarUsuario(View):
 
     
 
-class EditarUsuario(UpdateView):
-    model = User
-    form_class = RegistrationForm
-    template_name = 'agg_usuarios.html'
-    success_url= reverse_lazy('lista_usuarios')
-    
-    @method_decorator(login_required)
-    def dispatch(self, request, *args, **kwargs):
-        # if not request.user.has_perm('productos.change_productos'):
-        #       messages.success(request,"ACCESO DENEGADO")
-        #       return redirect('productos')
-        return super(EditarUsuario,self).dispatch(request, *args, **kwargs)
-
-
 
 @login_required
 def EliminarUsuario(request, pk):

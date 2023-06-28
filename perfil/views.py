@@ -11,7 +11,7 @@ from tareas.models import Tareas
 from django.db.models import Sum
 
 
-from perfil.forms import EditUserForm,EditPerfilForm
+from perfil.forms import EditUserForm,EditPerfilForm,EditPuestoForm
 
 
 
@@ -57,18 +57,36 @@ def Perfil_Usuario(request,pk):
 
         return render(request,'perfil.html',data)
 
+
+
 def Editar_Usuario(request, pk):
 
     usuario = get_object_or_404(User,id = pk)
     perfil = get_object_or_404(Perfil,id = pk)
 
+    rol = request.user.groups.all().values('name')
+    grupo = Autorizacion(rol)
 
-    data = {
-        'form1': EditUserForm(instance = usuario),
-        'form2': EditPerfilForm(instance = perfil),
-        'usuario': usuario,
+    if grupo == 1:
 
-    }
+
+        data = {
+            'form1': EditUserForm(instance = usuario),
+            'form2': EditPuestoForm(instance = perfil),
+            'usuario': usuario,
+
+        }
+        
+    elif request.user == usuario:
+        
+        data = {
+            'form1': EditUserForm(instance = usuario),
+            'form2': EditPerfilForm(instance = perfil),
+            'usuario': usuario,
+        }
+    else:
+            messages.error(request,"Usuario no Autorizado!")
+            return redirect('perfil',usuario.id)        
 
 
     if request.method == 'GET':
@@ -78,19 +96,24 @@ def Editar_Usuario(request, pk):
     
     elif request.method == 'POST':
 
-        form1 = EditUserForm(data = request.POST, instance=usuario,files = request.FILES)
-        form2 = EditPerfilForm(data = request.POST, instance=perfil,files = request.FILES)
 
-        if form1.is_valid() and form2.is_valid():
-            form1.save()
-            form2.save()
 
-            
-            messages.success(request,"Usuario Editado")
-            return redirect('perfil',usuario.id)
-        else:
-            messages.error(request,"Ha Ocurrido un error!")
-            return render(request,'editar_perfil.html',data)
+            form1 = EditUserForm(data = request.POST, instance=usuario,files = request.FILES)
+            if grupo == 1:
+                form2 = EditPuestoForm(data = request.POST, instance=perfil,files = request.FILES)
+            else:
+                form2 = EditPerfilForm(data = request.POST, instance=perfil,files = request.FILES)
+
+            if form1.is_valid() and form2.is_valid():
+                form1.save()
+                form2.save()
+
+                
+                messages.success(request,"Usuario Editado")
+                return redirect('perfil',usuario.id)
+            else:
+                messages.error(request,"Ha Ocurrido un error!")
+                return render(request,'editar_perfil.html',data)        
 
 
     

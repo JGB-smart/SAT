@@ -427,7 +427,7 @@ def Autorizacion(rol):                                     # Método que verific
 
 
 
-def Tarea_Autorizacion(pk):
+def Tarea_Autorizacion(pk):                                 # Metodo que verifica bajo que rol esta hecha una tarea
 
     tarea = Tareas.objects.filter(id = pk).values('tarea','CreadaPor__username','CreadaPor__groups__name')
 
