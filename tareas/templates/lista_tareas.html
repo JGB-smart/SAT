@@ -77,12 +77,14 @@
                                             <div class="text-center">
                                                 <a href="{% url 'editar_tareas' tarea.id%}" 
                                                 title="Editar" 
-                                                class="btn btn-info btn-sm">
+                                                class="btn btn-info btn-sm">                                              
                                                     <i class="fa fa-edit"></i></a>
-                                                <a href="{% url 'eliminar_tareas' tarea.id%}" 
+                                                {% if perms.tareas.delete_tareas%}
+                                                    <a href="{% url 'eliminar_tareas' tarea.id%}" 
                                                 title="Eliminar" 
-                                                class="btn btn-danger btn-sm">
+                                                class="btn btn-danger btn-sm">                                               
                                                     <i class="fa fa-trash"></i></a>
+                                                {% endif %}    
                                                 <a href="{% url 'lista_comentarios' tarea.id %}" 
                                                 title="Comentar" 
                                                 class="btn btn-info btn-sm">

@@ -12,8 +12,10 @@
 {% block content %}
     
     <h3>Usuarios</h3>
-    <a href="{% url 'agregar_usuario' %}" class="btn btn-success main-add-button" title="Agregar"> <i class="fa fa-plus"></i></a>
 
+    {% if perms.auth.add_user%}
+        <a href="{% url 'agregar_usuario' %}" class="btn btn-success main-add-button" title="Agregar"> <i class="fa fa-plus"></i></a>
+    {% endif %}
     {% if usuarios %}
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
@@ -69,7 +71,7 @@
                                         <!-- <a 
                                             href="{% url 'eliminar_usuario' usuario.id %}" 
                                             class="btn btn-danger">Eliminar</a> -->
-
+                                        {% if perms.auth.delete_user%}
                                         <a class="btn btn-danger action-button btn-sm" 
                                             title="Eliminar" 
                                             data-toggle="modal" 
@@ -77,6 +79,7 @@
                                             data-detail="{{ usuario.first_name }}|{% url 'eliminar_usuario' usuario.id %}">
                                             <i class="fa fa-trash"></i>
                                         </a>
+                                        {% endif %}
                                     </td>
                                 </tr>
                             {% endfor %}                       

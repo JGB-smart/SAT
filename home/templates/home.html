@@ -104,7 +104,9 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Sub Módulos Tareas</h6>
                         <a class="collapse-item" href="{% url 'lista_tareas' %}">Listado</a>
-                        <a class="collapse-item" href="{% url 'lista_categorias' %}">Categorias</a>
+                        {% if perms.categorias.delete_categorias%}
+                            <a class="collapse-item" href="{% url 'lista_categorias' %}">Categorias</a>
+                        {% endif %} 
                         <a class="collapse-item" href="{% url 'tarea_comentario' %}">Comentarios</a>
                         <a class="collapse-item" href="{% url 'lista_archivo' %}">Archivo</a>
                         <div class="collapse-divider"></div>
