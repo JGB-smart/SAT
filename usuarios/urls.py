@@ -3,6 +3,9 @@ from usuarios import views
 
 
 urlpatterns = [
-    path('lista_usuarios/', views.Usuarios, name='lista_usuarios'),
+    path('lista_usuarios/', views.ListadoUsuarios.as_view(), name='lista_usuarios'),
+    path('lista_usuarios_grupos/', views.ListadoUsuario_Grupo.as_view(), name='lista_usuarios_grupos'),
+    path('agregar_usuarios/', views.AgregarUsuario.as_view(), name='agregar_usuario'),
+    path('eliminar_usuario/<int:pk>', views.EliminarUsuario, name='eliminar_usuario'),
     # path('usuarios/', views.ListadoUsuarios.as_view(), name='usuarios'),
 ]

@@ -1,0 +1,6 @@
+# Archivos
+*.pyc
+*.sqlite3
+
+# Carpetas
+__pycache__

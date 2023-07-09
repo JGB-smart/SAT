@@ -1,0 +1,181 @@
+{% extends "home.html"%}
+{% load static %}
+
+{% block link %}
+        
+{% endblock%}
+
+{% block title %} Perfil {% endblock %}
+
+
+{% block content %}
+
+  {% if usuario %}
+
+  <section style="background-color: #eee;">
+    <div class="container py-5">
+      <div class="row">
+        <div class="col">
+          <div aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+                <h2 class="text-center"><b>Perfil</b></h2>
+          </div>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="card mb-4">
+            <div class="card-body text-center">
+              <img src="/media/{{usuario.perfil.image}}" alt="avatar"
+                class="rounded-circle img-fluid" style="width: 150px;">
+              <h5 class="my-3">{{usuario.username}}</h5>
+              <p class="text-muted mb-1">Rol: {{grupo}}</p>
+              <p class="text-muted mb-4">Puesto: {{usuario.perfil.puesto}}</p>
+              <div class="d-flex justify-content-center mb-2">
+                <a href="{% url 'editar_perfil' usuario.id%}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
+                <!-- <button type="button" class="btn btn-primary">Editar</button>
+                <button type="button" class="btn btn-outline-primary ms-1">Eliminar</button> -->
+              </div>
+            </div>
+          </div>
+          <div class="card mb-4 mb-lg-0">
+            <div class="card-body p-0">
+              <ul class="list-group list-group-flush rounded-3">
+                <li class="list-group-item align-items-center p-3">
+                  <div class="text-center">
+                    <i class="fas fa-star fa-lg text-warning"></i>
+                    <p class="mb-0">Puntuación</p>
+
+                  </div>
+                </li>
+                <li class="list-group-item align-items-center">
+                      <h3 class="mb-0 text-muted text-center">{{puntaje}}</h3>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="card mb-4">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Nombre</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{usuario.first_name}}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Apellido</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{usuario.last_name}}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Email</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{usuario.email}}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Teléfono</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{usuario.perfil.telf}}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Puesto</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0">{{usuario.perfil.puesto}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="card mb-4 mb-md-0">
+                <div class="card-body p-0">
+                  <ul class="list-group list-group-flush rounded-3">
+                    <li class="list-group-item align-items-center p-3">
+                      <div class="text-center">
+                        <i class="fas fa-clipboard-list fa-2x text-info"></i>
+                        <p class="mb-0">Tareas Activas</p>
+                      </div>
+                    </li>
+                    <li class="list-group-item align-items-center">
+                          <h3 class="mb-0 text-muted text-center">{{tareas_activas}}</h3>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card mb-4 mb-md-0">
+                <div class="card-body p-0">
+                  <ul class="list-group list-group-flush rounded-3">
+                    <li class="list-group-item align-items-center p-3">
+                      <div class="text-center">
+                        <i class="fas fa-clipboard-list fa-2x text-info"></i>
+                        <p class="mb-0">Tareas Finalizadas</p>
+                      </div>
+                    </li>
+                    <li class="list-group-item align-items-center">
+                          <h3 class="mb-0 text-muted text-center">{{tareas_archivadas}}</h3>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+    {%else%}
+      <br>
+      <div class="text-center">
+        <h4>Usuario no encontrado...</h4>
+      </div>
+
+
+  {% endif %}
+  
+
+
+
+        
+    {% block js %}
+    
+      {% if messages %}
+        {% for m in messages %}
+            <script>
+                Swal.fire({
+                    "title":"Operación realizada!",
+                    "text": "{{m}}",
+                    "icon":"success"
+                });
+            </script>
+        {% endfor %}
+      {% endif %}    
+      
+    {% endblock%}
+
+
+{% endblock %}

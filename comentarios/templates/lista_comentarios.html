@@ -1,0 +1,140 @@
+{% extends "home.html"%}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block link %}
+
+    <link href="{% static 'css/lista_comentarios' %}" rel="stylesheet">
+        
+{% endblock%}
+
+{% block title %} Lista de comentarios {% endblock %}
+
+
+{% block content %}
+    
+    <h3>Lista de comentarios</h3>
+
+    {% if comentarios %}
+
+
+      <section style="background-color: #ffffff;">
+        <div class="container my-5 py-5">
+          <div class="row d-flex justify-content-center">
+            <div class="col-md-12 col-lg-10">
+              <div class="card text-dark">
+                <div class="card-body p-4">
+                  <h4 class="mb-0">Tarea:<b> {{titulo}}</b></h4>
+                  <span class="badge bg-primary">{{categoria}}</span><br><br>
+                  <!-- <p class="fw-light mb-4 pb-2">{{categoria}}</p> -->
+      
+                  
+                  {% for comentario in comentarios %}
+                  
+                    <div class="d-flex flex-start">
+                      <img class="rounded-circle shadow-1-strong me-3"
+                        src="/media/{{comentario.user.perfil.image}}" alt="avatar" width="60"
+                        height="60" />
+                      <div>
+                        <h6 class="fw-bold mb-1">{{comentario.user}}</h6>
+                        <div class="d-flex align-items-center mb-3">
+                          <p class="mb-0">
+                            {{comentario.fecha}}
+
+                          </p>
+                          <!-- Iconos de posibles futuras Acciones -->
+                          <!-- <a href="#!" class="link-muted"><i class="fas fa-pencil-alt ms-2"></i></a>
+                          <a href="#!" class="link-muted"><i class="fas fa-redo-alt ms-2"></i></a>
+                          <a href="#!" class="link-muted"><i class="fas fa-heart ms-2"></i></a> -->
+                        </div>
+                        <p class="mb-0">
+                          {{comentario.comentario}}
+                        </p>
+                      </div>
+                    </div>
+
+                    <br>
+                    <hr class="my-0" style="height: 1px;" />
+                    <br>      
+
+                  {% endfor %}             
+                
+                
+                </div>
+      
+              
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {%else%}
+
+      <br>
+      <div class="text-center">
+        <h4>No hay comentarios sobre la tarea...</h4>
+      </div>
+
+
+    {% endif %}
+
+
+    <section style="background-color: #ffffff;">
+      <div class="container my-5 py-5 text-dark">
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-10 col-lg-8 col-xl-6">
+            <div class="card">
+              <div class="card-body p-4">
+                <div class="d-flex flex-start w-100">
+                  <img class="rounded-circle shadow-1-strong me-3"
+                    src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(21).webp" alt="avatar" width="65"
+                    height="65" />
+                  <div class="w-100">
+                    <h5>Agrega un comentario</h5>
+                    <form action="" method="post" id="formulario_comentario">
+                      {% csrf_token %}
+                      <div class="form-outline">
+                        {{ form|crispy }}
+                        <label class="form-label" for="textAreaExample">¿Qué hay de nuevo?</label>
+                      </div>
+                      <div class="d-flex justify-content-between mt-3">
+                        <button type="button" onclick="borrar()" class="btn btn-danger">Borrar</button>
+                        <button type="submit" class="btn btn-success">
+                          Enviar <i class="fas fa-long-arrow-alt-right ms-1"></i>
+                        </button>
+                      </div>
+                      
+                    </form>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+    {% block js %}
+
+    <script>
+      function borrar(){
+
+        formulario_comentario.reset();
+
+        return false;
+      }
+    </script>
+
+
+      
+    {% endblock%}
+        
+    
+
+
+{% endblock %}

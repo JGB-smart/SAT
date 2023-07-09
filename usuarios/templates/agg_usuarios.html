@@ -1,0 +1,57 @@
+{% extends "home.html"%}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block link %}
+        
+{% endblock%}
+
+{% block title %} Registro de Usuarios {% endblock %}
+
+{% block content %}
+    
+    <h3>Agregar Usuario</h3>
+
+    <br>
+        <div class="row">
+
+            
+            <div class="col-12 col-md-7 offset-md-3">
+
+                <div class="card">
+
+                    <div class="card-body">
+
+                        <form action="" method="post">
+                            {% csrf_token %}
+                
+                        
+                            {{ form|crispy }}
+                            {{ form2|crispy  }}
+                            <div class="text-center">
+                                <input class="btn btn-success" type="submit" value="Agregar">
+                                &ensp;
+                                <a href="{% url 'lista_usuarios' %} " class="btn btn-danger">Cancelar</a>
+                            </div>
+                
+                        </form>
+    
+                    </div>
+
+
+                </div>
+ 
+            </div>
+
+        </div>
+
+
+        <br>
+        
+
+
+  
+
+   
+{% endblock %}

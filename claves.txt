@@ -1,0 +1,37 @@
+Usuarios:
+
+1 - Admin:
+
+username: juan
+pass:admin
+
+2 - Directores:
+
+username: Orlandox
+pass: director_1234
+
+username: directorx
+pass: dejame_entrar_12345
+
+3 - Gerentes:
+
+username: Karinax
+pass: gerente_1234
+
+username: toyotax
+pass: gerente_1234
+
+4 - Trabajadores:
+
+username: Alejandrox
+pass: trabajador_1234
+
+username: Carlox
+pass: trabajador_1234
+
+username: Juanchox
+pass: trabajador_1234
+
+
+pruebitax_gqwert637
+

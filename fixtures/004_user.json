@@ -1,0 +1,20 @@
+[
+{
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$600000$TXMm3IDvqjmFi9ejM870SA$rvPkzDLbOcj71TKifokVX/wryx06NArlDjkyau+5MLc=",
+        "last_login": "2023-06-19T04:04:03.265Z",
+        "is_superuser": true,
+        "username": "admin_sat",
+        "first_name": "",
+        "last_name": "",
+        "email": "admin@gmail.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2023-06-17T18:21:17.414Z",
+        "groups": [],
+        "user_permissions": []
+    }
+}
+]
