@@ -22,7 +22,7 @@ class ListadoUsuarios(ListView):
     model = User
     template_name = 'lista_usuarios.html'
     context_object_name = 'usuarios'             # permite cambiar de nombre al objetos listview que se llamara en la vista
-    queryset=  User.objects.all()           #  Permite realizar filtros a la consulta
+    queryset=  User.objects.all().exclude(is_superuser = True)           #  Permite realizar filtros a la consulta
                                               # PROBAR:REMPLAZAR QUERYSET por su metodo de este modo:
                                                 ## def get_queryset(self):
                                                 ##  return self.model.objects.filter(fitrodecampo)   
